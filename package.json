@@ -1,0 +1,14 @@
+{
+  "name": "assigment-1-web-development-baudet-quentin",
+  "version": "1.0.0",
+  "description": "The first assigment of the Web development class",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Baudet Quentin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
