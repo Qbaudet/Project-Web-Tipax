@@ -1,26 +1,33 @@
-/* home.css */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #EFE7DB;
+}
+
 header {
     background-color: #333;
-    overflow: hidden;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 20px;
 }
 
 .navbar-title {
     color: white;
-    margin-left: 20px;
+    margin: 0;
 }
 
 ul.navbar {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
 }
 
 li.nav-item {
     display: inline-block;
-    margin-right: 20px;
+    margin: 0 10px; 
 }
 
 li.nav-item a {
@@ -30,4 +37,14 @@ li.nav-item a {
 
 li.nav-item a:hover {
     text-decoration: underline;
+}
+
+.content {
+    text-align: center;
+    margin-top: 20px;
+}
+
+form {
+    display: inline-block;
+    text-align: left;
 }
