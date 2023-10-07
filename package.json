@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "assigment-1-web-development-baudet-quentin",
   "version": "1.0.0",
   "description": "The first assigment of the Web development class",
@@ -11,6 +12,8 @@
   "author": "Baudet Quentin",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "knex": "^3.0.1",
+    "pg": "^8.11.3"
   }
 }
