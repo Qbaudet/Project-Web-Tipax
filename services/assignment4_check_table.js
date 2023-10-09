@@ -5,8 +5,8 @@ const knex = require('../database/database.js');
 async function addToHistory({ checkBasePrice, taxRate, tipRate, finalAmount, restaurantName }) {
     
     try {
-        // Insert data into the "basic_check" table
-        const [insertedRecord] = await knex('basic_check').insert({
+        // Insert data into the "assignment_4_check_table" table
+        const [insertedRecord] = await knex('assignment_4_check_table').insert({
             base_price: checkBasePrice,
             tax_rate: taxRate,
             tip_rate: tipRate,
@@ -23,7 +23,7 @@ async function addToHistory({ checkBasePrice, taxRate, tipRate, finalAmount, res
 
 async function getHistoryRecords() {
     try {
-        const records = await knex('basic_check').select('id_check','final_amount','restaurant_name');
+        const records = await knex('assignment_4_check_table').select('id_check','final_amount','restaurant_name');
         return records;
     } catch (error) {
         console.error('Error:', error);
@@ -33,7 +33,7 @@ async function getHistoryRecords() {
 
 async function checkIfFAExists(finalAmount) {
     try {
-        const check = await knex('basic_check').where('final_amount', finalAmount).first();
+        const check = await knex('assignment_4_check_table').where('final_amount', finalAmount).first();
         return !!check; // Return true if check exists, false otherwise
     } catch (error) {
         console.error('Error:', error);
@@ -43,7 +43,7 @@ async function checkIfFAExists(finalAmount) {
 
 async function checkIfIdExists(id_check) {
     try {
-        const check = await knex('basic_check').where('id_check', id_check).first();
+        const check = await knex('assignment_4_check_table').where('id_check', id_check).first();
         return !!check; // Return true if check exists, false otherwise
     } catch (error) {
         console.error('Error:', error);
@@ -53,7 +53,7 @@ async function checkIfIdExists(id_check) {
 
 async function getCheckDetailsByFA(finalAmount) {
     try {
-      const checkDetails = await knex('basic_check').where('final_amount', finalAmount).first();
+      const checkDetails = await knex('assignment_4_check_table').where('final_amount', finalAmount).first();
       return checkDetails;
     } catch (error) {
       console.error('Error:', error);
@@ -68,7 +68,7 @@ async function deleteCheck(id_check) {
             return { success: false, message: 'Check not found' };
         }
 
-        await knex('basic_check').where('id_check', id_check).del();
+        await knex('assignment_4_check_table').where('id_check', id_check).del();
 
         return { success: true, message: 'Deletion successful, reload the page to see the changes.' };
     } catch (error) {
@@ -84,7 +84,7 @@ async function updateCheck(id_check, newRestaurantName) {
             return { success: false, message: 'Check not found' };
         }
 
-        await knex('basic_check').where('id_check', id_check).update('restaurant_name', newRestaurantName);
+        await knex('assignment_4_check_table').where('id_check', id_check).update('restaurant_name', newRestaurantName);
 
         return { success: true, message: 'Update successful, reload the page to see the changes.' };
     } catch (error) {

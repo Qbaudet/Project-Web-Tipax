@@ -1,7 +1,7 @@
 const express = require('express');
 const calculateFinalAmount = require('./utils');
 const knex = require('./database/database.js');
-const { addToHistory, getHistoryRecords, getCheckDetailsByFA, checkIfFAExists, checkIfIdExists, deleteCheck, updateCheck } = require('./services/basic_checks.js');
+const { addToHistory, getHistoryRecords, getCheckDetailsByFA, checkIfFAExists, checkIfIdExists, deleteCheck, updateCheck } = require('./services/assignment4_check_table.js');
 
 const app = express();
 

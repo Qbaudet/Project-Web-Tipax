@@ -1,9 +1,9 @@
-/**
+/**updating
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
 exports.up = async knex => {
-  await knex.schema.createTable('basic_check', (table) => {
+  await knex.schema.createTable('assignment_4_check_table', (table) => {
     table.increments('id_check');
     table.float('base_price');
     table.float('tax_rate');
@@ -18,5 +18,5 @@ exports.up = async knex => {
  * @returns { Promise<void> }
  */
 exports.down = async knex => {
-    await knex.schema.dropTable('basic_check');
+    await knex.schema.dropTable('assignment_4_check_table');
   };
