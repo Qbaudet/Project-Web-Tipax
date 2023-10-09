@@ -13,10 +13,85 @@
         <nav>
             <ul class="navbar">
                 <li class="nav-item"><a href="/">Home</a></li>
-                <li class="nav-item"><a href="/history.html">History</a></li>
+                <li class="nav-item"><a href="/history">History</a></li>
             </ul>
         </nav>
     </header>
-    <h3>The history about your previous checks will be here</h3>
+
+    <h2>History of your checks:</h2>
+    
+    <div id="records">
+    </div>
+    <br>
+    <br>
+    <h2>Getting details:</h2>
+    <div id="checkDetails"></div>
+    <div class="content">
+        <div class="history-form-container">
+            <form id="checkDetailsForm">
+                <label for="checkFA" class="form-label">Enter the final amount of the check you want details about:</label>
+                <input type="number" id="checkFA" class="form-input" required step="0.01" >
+                <button id="getCheckDetails" class="form-button">Get Details</button>
+            </form>
+        </div>
+    </div>
+    <h2>Update a check:</h2>
+    <div></div>
+    <div id="updateCheck"></div>
+    <br>
+    <br>
+    <h2>Delete a check:</h2>
+    <div id="deleteCheck"></div>
+
+   
+
+    
+    
+    <script>
+        fetch('/history/data')
+        .then(response => response.json())
+        .then(data => {
+            const recordsDiv = document.getElementById('records');
+            data.forEach(record => {
+                const recordJson = JSON.stringify(record, null, 2);
+                recordsDiv.innerHTML += `<div>${recordJson}</div>`;
+            });
+        })
+        .catch(error => console.error('Error:', error));
+
+        document.getElementById('checkDetailsForm').addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent the default form submission
+            const finalAmount = document.getElementById('checkFA').value.toString();
+            fetchCheckDetails(finalAmount);
+        });
+
+        async function fetchCheckDetails(finalAmount) {
+            try {
+                const isValidIdResponse = await fetch(`/history/check/validate/${finalAmount}`);
+                const isValidFA = await isValidIdResponse.json();
+
+                if (!isValidFA) {
+                    alert('Invalid final amount. Please enter a valid one.');
+                    return;
+                }
+                const response = await fetch(`/history/check/${finalAmount}`);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch check details');
+                }
+                const checkDetails = await response.json();
+                const checkDetailsDiv = document.getElementById('checkDetails');
+
+                checkDetailsDiv.innerHTML = ''; // Clear any previous content
+
+                const checkDetailsJson = JSON.stringify(checkDetails, null, 2);
+                
+                checkDetailsDiv.innerHTML = `Here are the details about the check you chose :\n<pre>${checkDetailsJson}</pre>`;
+            } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to fetch check details.');
+            }
+        }
+    </script>
 </body>
 </html>

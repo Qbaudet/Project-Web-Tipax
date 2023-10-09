@@ -14,28 +14,37 @@
         <nav>
             <ul class="navbar">
                 <li class="nav-item"><a href="/">Home</a></li>
-                <li class="nav-item"><a href="/history.html">History</a></li>
+                <li class="nav-item"><a href="/history">History</a></li>
             </ul>
         </nav>
     </header>
     
-    <h3>The website that makes your check calculations a breeze !</h3>
+    <h2>The website that makes your check calculations a breeze !</h2>
     
     <div class="content">
-        <form id="calculateForm">
-            <label for="number1">Enter the check amount without tax:</label>
-            <input type="number" id="basePrice" name="basePrice" required>
-            <br>
-            <label for="number2">Enter the tax % of your city:</label>
-            <input type="number" id="taxRate" name="taxRate" required>
-            <br>
-            <input type="submit" value="Submit">
-        </form>
+        <div class="form-container">
+            <form id="calculateForm">
+                <label for="basePrice">Enter the check amount without tax:</label>
+                <input type="number" id="basePrice" name="basePrice" required step="0.01" min="0">
+                <br>
+                <label for="taxRate">Enter the tax % of your city (0-100%):</label>
+                <input type="number" id="taxRate" name="taxRate" required step="0.01" min="0" max="100">
+                <br>
+                <label for="tipRate">Enter the tip % you want to give (0-100%):</label>
+                <input type="number" id="tipRate" name="tipRate" required step="0.01" min="0" max="100">
+                <br>
+                <label for="restaurantName">Enter the name of the restaurant:</label>
+                <input type="text" id="restaurantName" name="restaurantName" required>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
     </div>
+    
 
     <div id="resultDiv">
-        <h3>The final check amount including tax is:</h3>
-        <p id="finalAmount"></p>
-    </div>    
+        <h3 id="result">The final check amount including taxes and tips is:</h3>
+        <p id="finalAmount"></p>   
+    <button id="addToHistory" style="display: none;">Add this check to the history</button>
+    </div>
 </body>
 </html>
