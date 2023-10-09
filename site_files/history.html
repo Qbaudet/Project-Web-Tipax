@@ -35,18 +35,32 @@
             </form>
         </div>
     </div>
-    <h2>Update a check:</h2>
-    <div></div>
-    <div id="updateCheck"></div>
-    <br>
-    <br>
+    <h2>Update the restaurant of a check:</h2>
+    <div id="updateCheckResult"></div>
+    <div class="content">  
+        <div class="history-form-container">
+            <form id="updateCheckForm">
+                <label for="updateId" class="form-label">Enter the ID of the check you want to change the restaurant of:</label>
+                <input type="number" id="updateId" class="form-input" required>
+                <label for="updateRestaurant" class="form-label">Enter the new name of the restaurant:</label>
+                <input type="text" id="updateRestaurant" class="form-input" required>
+                <button id="updateIdButton" class="form-button">Update Check</button>
+            </form>
+        </div>
+    </div>
     <h2>Delete a check:</h2>
-    <div id="deleteCheck"></div>
+    <div id="deleteCheckResult"></div>
+    <div class="content">
+        <div class="history-form-container">
+            <form id="deleteCheckForm">
+                <label for="deleteId" class="form-label">Enter the ID of the check you want to delete:</label>
+                <input type="number" id="deleteId" class="form-input" required>
+                <button id="deleteIdButton" class="form-button">Delete Check</button>
+            </form>
+        </div>
+    </div>
 
-   
 
-    
-    
     <script>
         fetch('/history/data')
         .then(response => response.json())
@@ -92,6 +106,58 @@
             alert('Failed to fetch check details.');
             }
         }
+
+
+        document.getElementById('updateCheckForm').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent the default form submission
+            const id_check = document.getElementById('updateId').value;
+            const newRestaurantName = document.getElementById('updateRestaurant').value;
+
+            // Send an HTTP POST request to update the check
+            try {
+                const response = await fetch(`/history/check/update/${id_check}/${newRestaurantName}`, {
+                    method: 'POST',
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to update check');
+                }
+
+                const updateCheckResult = await response.json();
+                const updateCheckResultDiv = document.getElementById('updateCheckResult');
+
+                updateCheckResultDiv.innerText = JSON.stringify(updateCheckResult);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to update check.');
+            }
+        });
+
+        document.getElementById('deleteCheckForm').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent the default form submission
+            const id_check = document.getElementById('deleteId').value;
+            
+            // Send an HTTP POST request to delete the check
+            try {
+                const response = await fetch(`/history/check/delete/${id_check}`, {
+                    method: 'POST',
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to delete check');
+                }
+
+                const deleteCheckResult = await response.json();
+                const deleteCheckResultDiv = document.getElementById('deleteCheckResult');
+
+                deleteCheckResultDiv.innerText = JSON.stringify(deleteCheckResult);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to delete check.');
+            }
+        });
+
+
     </script>
 </body>
 </html>

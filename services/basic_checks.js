@@ -41,6 +41,15 @@ async function checkIfFAExists(finalAmount) {
     }
 }
 
+async function checkIfIdExists(id_check) {
+    try {
+        const check = await knex('basic_check').where('id_check', id_check).first();
+        return !!check; // Return true if check exists, false otherwise
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
 
 async function getCheckDetailsByFA(finalAmount) {
     try {
@@ -50,6 +59,39 @@ async function getCheckDetailsByFA(finalAmount) {
       console.error('Error:', error);
       throw error;
     }
-  }
+}
 
-module.exports = { addToHistory, getHistoryRecords, getCheckDetailsByFA, checkIfFAExists };
+async function deleteCheck(id_check) {
+    try {
+        const checkExists = await checkIfIdExists(id_check);
+        if (!checkExists) {
+            return { success: false, message: 'Check not found' };
+        }
+
+        await knex('basic_check').where('id_check', id_check).del();
+
+        return { success: true, message: 'Deletion successful, reload the page to see the changes.' };
+    } catch (error) {
+        console.error('Error:', error);
+        return { success: false, message: 'Error deleting the check' };
+    }
+}
+
+async function updateCheck(id_check, newRestaurantName) {
+    try {
+        const checkExists = await checkIfIdExists(id_check);
+        if (!checkExists) {
+            return { success: false, message: 'Check not found' };
+        }
+
+        await knex('basic_check').where('id_check', id_check).update('restaurant_name', newRestaurantName);
+
+        return { success: true, message: 'Update successful, reload the page to see the changes.' };
+    } catch (error) {
+        console.error('Error:', error);
+        return { success: false, message: 'Error updating the check' };
+    }
+}
+
+
+module.exports = { addToHistory, getHistoryRecords, getCheckDetailsByFA, checkIfFAExists, checkIfIdExists, deleteCheck, updateCheck };
