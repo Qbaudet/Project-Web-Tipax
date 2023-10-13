@@ -4,45 +4,16 @@ body {
     background-color: #EFE7DB;
 }
 
-header {
-    background-color: #333;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
+header{
+    margin-bottom: 12px;
 }
+
 
 h1,h2,h3,h4,h5,h6 {
     margin-left: 10px;
 }
 
-.navbar-title {
-    color: white;
-    margin: 0;
-}
 
-ul.navbar {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-}
-
-li.nav-item {
-    display: inline-block;
-    margin: 0 10px; 
-}
-
-li.nav-item a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-li.nav-item a:hover {
-    text-decoration: underline;
-}
 
 .content {
     text-align: center;
