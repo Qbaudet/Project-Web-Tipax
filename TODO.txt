@@ -1,0 +1,16 @@
+- Adding VueJS to the project
+
+For example, button grey for add to history unless you calculated something
+
+
+- Better tables for the database 
+
+3 tables :
+Checks (history) / Restaurants ? / Meals (Menu) / Users (hash password)
+at least three migrations, divided logically (eg. tables, then join tables, then constraints, or user tables, book and author tables, and review tables, etc.)
+
+2 seed files:
+one with at least two records of fake data for every table
+one to initialize your production site (which will likely be much simpler, as it won't have fake data, just your user and whatever records you want your site to start out having)
+
+- Crypt Password of databse (maybe)
