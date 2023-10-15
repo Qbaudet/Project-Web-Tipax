@@ -95,17 +95,26 @@ document.addEventListener('DOMContentLoaded', function () {
             const properties = ["id_check", "base_price", "tax_rate", "tip_rate", "final_amount", "check_date", "associated_restaurant", "associated_user"];
 
             properties.forEach(property => {
-                const value = checkDetails[property];
+                let value = checkDetails[property];
 
                 // Check if the value is falsy (null, undefined, empty string, etc.), and skip it
                 if (!value) {
                     return; // Skip this property
                 }
 
+                if (property === 'check_date') {
+                    const dateObject = new Date(value);
+                    const formattedDate = dateObject.toISOString().split('T')[0];
+                    value = formattedDate;
+                }
+
+
+
                 const cardText = document.createElement('p');
                 cardText.classList.add('card-text');
                 cardText.textContent = `${property.replace('_', ' ')}: ${value}`;
                 card.appendChild(cardText);
+
             });
 
 

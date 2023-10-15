@@ -75,6 +75,14 @@ async function checkIfIdExists(id_check) {
 async function getCheckDetailsByFA(finalAmount) {
     try {
       const checkDetails = await knex('checks').where('final_amount', finalAmount).first();
+        if (checkDetails.associated_restaurant !== null) {
+            const restaurantName = await getRestaurantNameById(checkDetails.associated_restaurant);
+            checkDetails.associated_restaurant = restaurantName;
+        }
+        else {
+            checkDetails.associated_restaurant = 'No restaurant associated';
+        }
+
       return checkDetails;
     } catch (error) {
       console.error('Error:', error);
