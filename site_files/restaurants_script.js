@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    const restaurantList = document.getElementById("restaurant-list");
+
     
     document.getElementById("r_submit").addEventListener("click", function () {
         event.preventDefault();
@@ -63,7 +65,51 @@ document.addEventListener('DOMContentLoaded', function () {
                 MessageElement.style.display = "block";
             })
             .catch(error => console.error("Error:", error));
+
+
+
+
+
+            const newCard = document.createElement("div");
+            newCard.className = "cards";
+
+            const cardHeader = document.createElement("h3");
+            cardHeader.className = "card_header";
+            cardHeader.textContent = restaurantInfo.r_name;
+
+        
+
+            const cardBody = document.createElement("div");
+            cardBody.className = "card_body";
+            const address = document.createElement("p");
+            address.className = "address";
+            address.textContent = restaurantInfo.r_local;
+            const category = document.createElement("p");
+            category.className = "category";
+            category.textContent = restaurantInfo.r_category;
+            const ranking = document.createElement("p");
+            ranking.className = "ranking";
+            ranking.textContent = `${restaurantInfo.r_rating} stars`;
+
+            cardBody.appendChild(address);
+            cardBody.appendChild(category);
+            cardBody.appendChild(ranking);
+
+            newCard.appendChild(cardHeader);
+            
+            newCard.appendChild(cardBody);
+        
+            restaurantList.appendChild(newCard);
+
+            // Reset the form and restaurantInfo object
+           document.getElementById("r_form").reset();
+            restaurantInfo = {
+                r_name: "",
+                r_local: "",
+                r_category: "",
+                r_rating: ""
+            }; 
         }
-    });
+    }) 
     
 });
