@@ -86,13 +86,14 @@
                                         Up</button>
                                 </form>
                             </div>
-
+                            <div id="message" style="display: none;"></div>
                             <div>
                                 <p class="mb-0">Already have an account ? <a href="login.html"
                                         class="text-white-50 fw-bold">Login</a></p>
                             </div>
 
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -148,27 +149,33 @@
             }
 
             // Use Ajax or fetch to send the data to the server for database insertion
-            fetch('/create-user', {
-                method: 'POST',
+            fetch("/add-user", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    username: username,
-                    password: password
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('User created successfully!');
-                    } else {
-                        alert('Failed to create user');
+                body: JSON.stringify(
+                    {
+                        username: username,
+                        password: password
                     }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+                ),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the server's response here
+        
+                const MessageElement = document.getElementById("message");
+                if (data.success) {
+                    // Restaurant was added successfull
+                    MessageElement.innerText = "Your user was successfully added!";
+                } else {
+                    // There was an error
+                    MessageElement.innerText = "There was an error while adding your user.";
+                }
+                MessageElement.style.display = "block";
+            })
+            .catch(error => console.error("Error:", error));
         });
     </script>
 </body>
