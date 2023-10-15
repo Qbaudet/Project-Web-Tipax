@@ -1,5 +1,6 @@
 let checkBasePrice;
 
+
 function createCard(record) {
     const card = document.createElement('div');
     card.classList.add('card');

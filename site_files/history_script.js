@@ -1,9 +1,13 @@
+
 function createCard(record) {
+
+
     const cardContainer = document.createElement('div');
     cardContainer.classList.add('card');
 
     const card = document.createElement('div');
     card.classList.add('card-body');
+
 
     const cardTitle = document.createElement('h5');
     cardTitle.classList.add('card-title');
@@ -11,9 +15,14 @@ function createCard(record) {
 
     const cardText1 = document.createElement('p');
     cardText1.classList.add('card-text');
-    cardText1.textContent = `Restaurant: ${record.associated_restaurant}`;
+    if (record.associated_restaurant == null) {
 
-    cardText3 = document.createElement('p');
+    }else {
+        cardText1.textContent = `Restaurant: ${record.associated_restaurant}`;
+    }
+
+
+    const cardText3 = document.createElement('p');
     cardText3.classList.add('card-text');
     cardText3.textContent = `Base Price: $${record.base_price}`;
 
@@ -33,13 +42,14 @@ function createCard(record) {
 }
 
 
+
 document.addEventListener('DOMContentLoaded', function () {
     fetch('/history/data')
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             const recordsDiv = document.getElementById('records');
             data.forEach(record => {
+
                 const card = createCard(record);
                 recordsDiv.appendChild(card);
             });
@@ -71,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             checkDetailsDiv.innerHTML = ''; // Clear any previous content
 
-// Create a card element for displaying the check details
+            // Create a card element for displaying the check details
             const cardContainer = document.createElement('div');
             cardContainer.classList.add('card');
 
@@ -85,11 +95,20 @@ document.addEventListener('DOMContentLoaded', function () {
             const properties = ["id_check", "base_price", "tax_rate", "tip_rate", "final_amount", "check_date", "associated_restaurant", "associated_user"];
 
             properties.forEach(property => {
+                const value = checkDetails[property];
+
+                // Check if the value is falsy (null, undefined, empty string, etc.), and skip it
+                if (!value) {
+                    return; // Skip this property
+                }
+
                 const cardText = document.createElement('p');
                 cardText.classList.add('card-text');
-                cardText.textContent = `${property.replace('_', ' ')}: ${checkDetails[property]}`;
+                cardText.textContent = `${property.replace('_', ' ')}: ${value}`;
                 card.appendChild(cardText);
             });
+
+
 
             cardContainer.appendChild(card);
             checkDetailsDiv.appendChild(cardContainer);

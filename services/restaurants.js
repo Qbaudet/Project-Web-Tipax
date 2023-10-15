@@ -39,8 +39,22 @@ async function getRestaurantIdByName(restaurantName) {
         throw error;
     }
 }
+
+async function getRestaurantNameById(restaurantId) {
+    try {
+        const restaurant = await knex('restaurants').where('id_restaurant', restaurantId).first();
+        return restaurant.restaurant_name;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
+
+
 module.exports = {
     addRestaurant,
     getRestaurantNames,
-    getRestaurantIdByName
+    getRestaurantIdByName,
+    getRestaurantNameById
 };
