@@ -2,11 +2,11 @@
 const calculateFinalAmount = require('./utils');
 const { addToHistory, getHistoryRecords, getCheckDetailsByFA, checkIfFAExists, checkIfIdExists, deleteCheck } = require('./services/checks.js');
 const { addRestaurant, getRestaurantNames } = require('./services/restaurants.js');
-const { addUser } = require('./services/users.js');
+const { addUser, login } = require('./services/users.js');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const knex = require('./database/database.js');
+const bcrypt = require('bcrypt'); 
 
 //Setting up the express
 const express = require('express');
@@ -143,29 +143,40 @@ app.post('/add-restaurant', async (req, res) => {
 });
 
 
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
     const { username, password } = req.body;
-
-    if (username === 'admin' && password === 'admin') {
-        // For testing purposes, let's set a cookie to simulate session
-        res.cookie('user', username);
-        res.redirect('/'); // Redirect to a dashboard or another page
-    } else {
-        res.send('Invalid username or password'); // Handle login failure
+    try {
+        const loginResult = await login({ username, password });
+        if (loginResult.success) {
+            // Successful login, redirect to a dashboard or another page
+            res.redirect('/');
+        } else {
+            // Incorrect login, send an error response
+            res.status(401).json({ success: false, message: "Incorrect login" });
+        }
+    } catch (error) {
+        // Handle other errors, e.g., database connection issues
+        console.error('Error:', error);
+        res.status(500).json({ success: false, message: "Server error" });
     }
 });
 
+
 app.post('/add-user', async (req, res) => {
     const { username, password } = req.body;
-
+    const hash = await bcrypt.hash(password, 10);
     // Insert the user into the database using Knex
     try {   
-        await addUser({ username, password });
+        const result = await addUser({ username, hash });
         // If successful, send a success response
-        res.status(200).json({ success: true, message: "Your user was successfully added!" });
+        if (result.success){
+            res.status(200).json({ success: true, message: "Your user was successfully added!" });
+        } else {
+            res.status(200).json({ success: false, message: "There was an error while adding your user." });
+        }
     } catch (error) {
         // If there was an error, send an error response
-        res.status(500).json({ success: false, message: "There was an error while adding your user." });
+        res.status(500).json({ success: false, message: "Server error" });
     }
 });
 
