@@ -56,8 +56,20 @@
         </nav>
     </header>
 
+    <div id="r_div">
+        <h2>Register your restaurant</h2>
+        <form id="r_form">
+            <label for="r_name">Write the name of your restaurant</label>
+            <input type="text" id="r_name" name="r_name">
+            <label for="r_local">Enter the address of the restaurant</label>
+            <input type="text" id="r_local" name="r_local">
+            <label for="r_category">Choose a category for your restaurant:</label>
 
+<<<<<<< Updated upstream
         <select name="r_category" id="r_category">
+=======
+            <select name="r_category" id="r_category">
+>>>>>>> Stashed changes
             <option disabled selected value> -- select an option -- </option>
             <option value="japanese">Japanese food</option>
             <option value="chinese">Chinese food</option>
@@ -67,6 +79,7 @@
             <option value="food_truck">Food_truck</option>
             <option value="bar">Bar</option>
             <option value="pizzeria">Pizzeria</option>
+<<<<<<< Updated upstream
         </select>
 
         <div id="app">
@@ -123,6 +136,45 @@
             }
         }).mount('#app')
     </script>
+=======
+            </select>
+
+            <label for="r_rating">Rate your restaurant</label>
+            <div class="rating">
+                <input type="radio" id="star5" name="rating" value="5">
+                <label for="star5" title="5 stars"></label>
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4" title="4 stars"></label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3" title="3 stars"></label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2" title="2 stars"></label>
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1" title="1 star"></label>
+            </div>
+            <span id="rating-value"></span>
+            <input type="submit" value="Submit"id="r_submit">
+            
+        </form>
+        <div id="message" style="display: none;"></div>
+    </div>
+
+    <div id="r_cards">
+        <h2>Restaurants previously added</h2>
+        <div class="cards">
+            <h3 class="card_header">Chipotle</h3>
+            <img src="/img/chipotle.jpg" alt="logo chipotle" class="logo">
+            <div class="card_body">
+                <p class="address">2777 Alton Parkway</p>
+                <p class="category">Food_truck</p>
+                <p class="ranking">3 stars</p>
+            </div>
+        </div>
+        <div id="restaurant-list">
+            <!-- This is where the new cards will be added -->
+        </div>
+    </div>
+>>>>>>> Stashed changes
 </body>
 
 </html>
