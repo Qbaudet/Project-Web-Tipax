@@ -1,6 +1,4 @@
-- Adding VueJS to the project
 
-For example, button grey for add to history unless you calculated something
 
 
 
