@@ -77,8 +77,11 @@
                         <input type="number" id="tipRate" name="tipRate" required step="0.01" min="0" max="100">
                         <br>
                         <label for="restaurantName">Enter the name of the restaurant:</label>
-                        <input type="text" id="restaurantName" name="restaurantName" required>
-                        <input type="submit" value="Submit">
+                        <label for="restaurantName">Choose a restaurant:</label>
+                        <select id="restaurantName" name="restaurantName" class="form-input">
+                            <option value="" disabled selected>Select a restaurant</option>
+                        </select>
+                        <button id="addRestaurantButton" type="button">Add Your Own Restaurant</button>                        <input type="submit" value="Submit">
                     </form>
                 </div>
             </div>

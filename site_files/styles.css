@@ -50,7 +50,7 @@ input[type="text"] {
 }
 
 /* Style for the "Submit" button */
-input[type="submit"] {
+input[type="submit"], #addRestaurantButton {
     background-color: #7393B3;
     color: white;
     padding: 10px 25px;
@@ -133,4 +133,11 @@ input[type="submit"] {
     width: 15em;
 }
 
-
+.select-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}

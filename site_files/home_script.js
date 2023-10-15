@@ -28,7 +28,30 @@ function createCard(record) {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    
+
+    const restaurantSelect = document.getElementById('restaurantName');
+    const addRestaurantButton = document.getElementById('addRestaurantButton');
+
+
+    // Fetch restaurant names from the server
+    fetch('/getRestaurantNames')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(restaurant => {
+                const option = document.createElement('option');
+                option.value = restaurant.restaurant_name;
+                option.textContent = restaurant.restaurant_name;
+                restaurantSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+
+
+    addRestaurantButton.addEventListener('click', function () {
+        // Redirect to the "restaurants.html" page
+        window.location.href = 'restaurants.html';
+    });
+
     const calculateForm = document.getElementById('calculateForm');
     const result = document.getElementById('result');
     const addToHistoryButton = document.getElementById("addToHistory");
@@ -69,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function () {
         addToHistoryButton.style.display = "block"; // Show the button
     });
 
-     // Function to handle adding the check to history
      // Function to handle adding the check to history
 const addToHistory = () => {
     const taxRate = parseFloat(document.getElementById('taxRate').value);

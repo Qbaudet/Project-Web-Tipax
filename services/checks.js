@@ -1,17 +1,20 @@
 const knex = require('../database/database.js');
+const { getRestaurantIdByName } = require('./restaurants.js');
+
 
 
 //Create endpoint
 async function addToHistory({ checkBasePrice, taxRate, tipRate, finalAmount, restaurantName }) {
     
     try {
+        restaurantId = await getRestaurantIdByName(restaurantName);
         // Insert data into the "checks" table
         const [insertedRecord] = await knex('checks').insert({
             base_price: checkBasePrice,
             tax_rate: taxRate,
             tip_rate: tipRate,
             final_amount: finalAmount,
-            //associated_restaurant: null
+            associated_restaurant: restaurantId
         }).returning('*'); 
 
         return { success: true, message: 'Check added to history successfully, here is the json object of the record you inserted:\n', record: insertedRecord };

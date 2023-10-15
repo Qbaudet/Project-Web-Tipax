@@ -20,7 +20,27 @@ async function addRestaurant({ restaurantInfo }) {
         return { success: false};
     }
 }
+async function getRestaurantNames() {
+    try {
+        const records = await knex('restaurants').select('restaurant_name');
+        return records;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
 
+async function getRestaurantIdByName(restaurantName) {
+    try {
+        const restaurant = await knex('restaurants').where('restaurant_name', restaurantName).first();
+        return restaurant.id_restaurant;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
 module.exports = {
-    addRestaurant
+    addRestaurant,
+    getRestaurantNames,
+    getRestaurantIdByName
 };
