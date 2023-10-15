@@ -15,6 +15,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
     <header>
 
         <nav class="navbar bg-body-tertiary navbar-expand-lg bg-dark border-bottom border-body"
@@ -63,36 +65,71 @@
         <label for="r_category">Choose a category for your restaurant:</label>
 
         <select name="r_category" id="r_category">
-          <option disabled selected value> -- select an option -- </option>
-          <option value="japanese">Japanese food</option>
-          <option value="chinese">Chinese food</option>
-          <option value="mexican">Mexican food</option>
-          <option value="french">French food</option>
-          <option value="american">American food</option>
-          <option value="food_truck">Food_truck</option>
-          <option value="bar">Bar</option>
-          <option value="pizzeria">Pizzeria</option>
+            <option disabled selected value> -- select an option -- </option>
+            <option value="japanese">Japanese food</option>
+            <option value="chinese">Chinese food</option>
+            <option value="mexican">Mexican food</option>
+            <option value="french">French food</option>
+            <option value="american">American food</option>
+            <option value="food_truck">Food_truck</option>
+            <option value="bar">Bar</option>
+            <option value="pizzeria">Pizzeria</option>
         </select>
 
-        <label for="r_rating">Rate your restaurant</label>
-        <div class="rating">
-            <input type="radio" id="star5" name="rating" value="5">
-            <label for="star5" title="5 stars"></label>
-            <input type="radio" id="star4" name="rating" value="4">
-            <label for="star4" title="4 stars"></label>
-            <input type="radio" id="star3" name="rating" value="3">
-            <label for="star3" title="3 stars"></label>
-            <input type="radio" id="star2" name="rating" value="2">
-            <label for="star2" title="2 stars"></label>
-            <input type="radio" id="star1" name="rating" value="1">
-            <label for="star1" title="1 star"></label>
+        <div id="app">
+            <label for="r_rating">Rate your restaurant</label>
+            <div class="rating">
+                <input type="radio" id="star5" name="rating" value="5" v-model="selectedRating">
+                <label for="star5" title="5 stars"></label>
+                <input type="radio" id="star4" name="rating" value="4" v-model="selectedRating">
+                <label for="star4" title="4 stars"></label>
+                <input type="radio" id="star3" name="rating" value="3" v-model="selectedRating">
+                <label for="star3" title="3 stars"></label>
+                <input type="radio" id="star2" name="rating" value="2" v-model="selectedRating">
+                <label for="star2" title="2 stars"></label>
+                <input type="radio" id="star1" name="rating" value="1" v-model="selectedRating">
+                <label for="star1" title="1 star"></label>
+            </div>
+            <span id="rating-value"></span>
+            <p>{{ratingMessage}}</p>
+            <input type="submit" value="Submit" id="r_submit">
+
         </div>
-        <span id="rating-value"></span>
-        <input type="submit" value="Submit"id="r_submit">
-        
     </form>
     <div id="message" style="display: none;"></div>
 
+
+    <script>
+        const { createApp, ref, computed } = Vue
+
+        createApp({
+            setup() {
+                const selectedRating = ref(null)
+
+                const ratingMessage = computed(() => {
+                    switch (selectedRating.value) {
+                        case '1':
+                            return 'Terrible'
+                        case '2':
+                            return 'Meh'
+                        case '3':
+                            return 'Great'
+                        case '4':
+                            return 'Good'
+                        case '5':
+                            return 'Excellent'
+                        default:
+                            return ''
+                    }
+                })
+
+                return {
+                    selectedRating,
+                    ratingMessage,
+                }
+            }
+        }).mount('#app')
+    </script>
 </body>
 
 </html>
