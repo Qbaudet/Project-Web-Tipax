@@ -1,4 +1,4 @@
-### Project Name : _Tipax_
+# Project Name : _Tipax_
 ##### Idea by BAUDET Quentin
 ##### By BAUDET Quentin, DUPONT Nicolas, BEZOT Maxime
 
@@ -11,7 +11,7 @@
   The website will allow the user to _view the final price of his ckeck_ by letting him enter his city taxes and the tip amount.  
   It will allow to see the history the user checks. And also display a list of restaurants to register the meals avaiable there 
 
-  **Tools**
+* **Tools**
 
   This project use 
   * HTML
