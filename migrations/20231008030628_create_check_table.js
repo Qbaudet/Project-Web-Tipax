@@ -10,8 +10,8 @@ exports.up = async knex => {
     table.float('tip_rate').notNullable();
     table.string('final_amount').notNullable();
     table.date("check_date").defaultTo(knex.fn.now());
-    //cannot add foreign key while the restaurant table is not created
-    //table.integer("associated_restaurant").references("id_restaurant").inTable("restaurants");
+    table.integer("associated_restaurant").references("id_restaurant").inTable("restaurants");
+    table.integer("associated_user").references("id_user").inTable("users");
     });
 };
 
