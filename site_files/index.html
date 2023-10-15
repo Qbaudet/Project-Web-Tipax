@@ -6,63 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tipax</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="home_script.js"></script>
+
 
 </head>
 
 <body>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-    <header>
+<header>
 
-        <nav class="navbar bg-body-tertiary navbar-expand-lg bg-dark border-bottom border-body"
-            style="background-color:#333;" data-bs-theme="dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="img/bill-2.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-                    <span class="navbar-brand mb-0 h1">Tipax</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+    <nav class="navbar bg-body-tertiary navbar-expand-lg bg-dark border-bottom border-body"
+         style="background-color:#333;" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="img/bill-2.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+                <span class="navbar-brand mb-0 h1">Tipax</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="history.html">History</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="restaurants.html">Restaurants</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="auth/login.html">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="auth/signup.html">Register</a>
-                        </li>
-                    </ul>
-                </div>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="history.html">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="restaurants.html">Restaurants</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="auth/login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="auth/signup.html">Register</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
 
-    <h2>The website that makes your check calculations a breeze !</h2>
+<h2>The website that makes your check calculations a breeze !</h2>
 
-    <div class="container">
-        <div class="row">
-          <div class="col">
+<div class="container">
+    <div class="row">
+        <div class="col">
             <div class="content">
                 <div class="home-form-container">
                     <form id="calculateForm">
@@ -81,8 +82,8 @@
                     </form>
                 </div>
             </div>
-          </div>
-          <div class="col">
+        </div>
+        <div class="col">
             <br>
             <div id="resultDiv">
                 <h3 id="result">The final check amount including taxes and tips is:</h3>
@@ -91,45 +92,47 @@
             </div>
             <br><br><br>
             <h5>Here is the most recent check you calculated:</h5>
+            <div id="records"></div>
 
-                </div>
-            </div>
 
         </div>
-
     </div>
 
-    <script>
-        const { createApp, ref } = Vue
+</div>
 
-        const app = createApp({
-            setup() {
-                const calculatedTab = ref(false);
 
-                // Method to set calculatedTab to true
-                const setCalculatedTabTrue = () => {
-                    const basePriceInput = $refs.basePriceInput;
-                    const taxRateInput = $refs.taxRateInput;
-                    const tipRateInput = $refs.tipRateInput;
-                    const restaurantNameInput = $refs.restaurantNameInput;
 
-                    // Perform form validation using these references
+<script>
+    const {createApp, ref} = Vue
 
-                    if (!basePriceInput.value || !taxRateInput.value || !tipRateInput.value || !restaurantNameInput.value) {
-                        // Display an error message or take appropriate action
-                        return;
-                    }
-                    calculatedTab.value = true;
+    const app = createApp({
+        setup() {
+            const calculatedTab = ref(false);
+
+            // Method to set calculatedTab to true
+            const setCalculatedTabTrue = () => {
+                const basePriceInput = $refs.basePriceInput;
+                const taxRateInput = $refs.taxRateInput;
+                const tipRateInput = $refs.tipRateInput;
+                const restaurantNameInput = $refs.restaurantNameInput;
+
+                // Perform form validation using these references
+
+                if (!basePriceInput.value || !taxRateInput.value || !tipRateInput.value || !restaurantNameInput.value) {
+                    // Display an error message or take appropriate action
+                    return;
                 }
-
-                return {
-                    calculatedTab,
-                    setCalculatedTabTrue, // Expose the method to the template
-                }
+                calculatedTab.value = true;
             }
-        }).mount('#app')
 
-    </script>
+            return {
+                calculatedTab,
+                setCalculatedTabTrue, // Expose the method to the template
+            }
+        }
+    }).mount('#app')
+
+</script>
 
 </body>
 

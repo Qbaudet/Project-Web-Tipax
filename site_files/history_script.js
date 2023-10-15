@@ -1,11 +1,47 @@
-document.addEventListener('DOMContentLoaded', function () {    
+function createCard(record) {
+    const cardContainer = document.createElement('div');
+    cardContainer.classList.add('card');
+
+    const card = document.createElement('div');
+    card.classList.add('card-body');
+
+    const cardTitle = document.createElement('h5');
+    cardTitle.classList.add('card-title');
+    cardTitle.textContent = `Final Price : $${record.final_amount}`;
+
+    const cardText1 = document.createElement('p');
+    cardText1.classList.add('card-text');
+    cardText1.textContent = `Restaurant: ${record.associated_restaurant}`;
+
+    cardText3 = document.createElement('p');
+    cardText3.classList.add('card-text');
+    cardText3.textContent = `Base Price: $${record.base_price}`;
+
+    const cardText2 = document.createElement('p');
+    cardText2.classList.add('card-text');
+    const dateObject = new Date(record.check_date);
+    const formattedDate = dateObject.toISOString().split('T')[0];
+    cardText2.textContent = `Date: ${formattedDate}`;
+
+    card.appendChild(cardTitle);
+    card.appendChild(cardText1);
+    card.appendChild(cardText2);
+    card.appendChild(cardText3);
+    cardContainer.appendChild(card);
+
+    return cardContainer;
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
     fetch('/history/data')
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             const recordsDiv = document.getElementById('records');
             data.forEach(record => {
-                const recordJson = JSON.stringify(record, null, 2);
-                recordsDiv.innerHTML += `<div>${recordJson}</div>`;
+                const card = createCard(record);
+                recordsDiv.appendChild(card);
             });
         })
         .catch(error => console.error('Error:', error));
@@ -35,9 +71,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
             checkDetailsDiv.innerHTML = ''; // Clear any previous content
 
-            const checkDetailsJson = JSON.stringify(checkDetails, null, 2);
+// Create a card element for displaying the check details
+            const cardContainer = document.createElement('div');
+            cardContainer.classList.add('card');
 
-            checkDetailsDiv.innerHTML = `Here are the details about the check you chose :\n<pre>${checkDetailsJson}</pre>`;
+            const card = document.createElement('div');
+            card.classList.add('card-body');
+
+            const cardTitle = document.createElement('h5');
+            cardTitle.classList.add('card-title');
+            cardTitle.textContent = `Check Details`;
+
+            const properties = ["id_check", "base_price", "tax_rate", "tip_rate", "final_amount", "check_date", "associated_restaurant", "associated_user"];
+
+            properties.forEach(property => {
+                const cardText = document.createElement('p');
+                cardText.classList.add('card-text');
+                cardText.textContent = `${property.replace('_', ' ')}: ${checkDetails[property]}`;
+                card.appendChild(cardText);
+            });
+
+            cardContainer.appendChild(card);
+            checkDetailsDiv.appendChild(cardContainer);
+
         } catch (error) {
             console.error('Error:', error);
             alert('Failed to fetch check details.');

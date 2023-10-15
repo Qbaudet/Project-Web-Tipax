@@ -23,7 +23,7 @@ async function addToHistory({ checkBasePrice, taxRate, tipRate, finalAmount, res
 
 async function getHistoryRecords() {
     try {
-        const records = await knex('checks').select('id_check','final_amount');
+        const records = await knex('checks').select('*');
         return records;
     } catch (error) {
         console.error('Error:', error);

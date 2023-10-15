@@ -122,3 +122,15 @@ input[type="submit"] {
     font-weight: bold;
     font-family: Arial, sans-serif;
 }
+.card-container {
+    margin-left: 3%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjust the gap between cards as needed */
+}
+
+.card {
+    width: 15em;
+}
+
+
