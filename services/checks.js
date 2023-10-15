@@ -5,13 +5,13 @@ const knex = require('../database/database.js');
 async function addToHistory({ checkBasePrice, taxRate, tipRate, finalAmount, restaurantName }) {
     
     try {
-        // Insert data into the "assignment_4_check_table" table
-        const [insertedRecord] = await knex('assignment_4_check_table').insert({
+        // Insert data into the "checks" table
+        const [insertedRecord] = await knex('checks').insert({
             base_price: checkBasePrice,
             tax_rate: taxRate,
             tip_rate: tipRate,
             final_amount: finalAmount,
-            restaurant_name: restaurantName,
+            //associated_restaurant: null
         }).returning('*'); 
 
         return { success: true, message: 'Check added to history successfully, here is the json object of the record you inserted:\n', record: insertedRecord };
@@ -23,7 +23,7 @@ async function addToHistory({ checkBasePrice, taxRate, tipRate, finalAmount, res
 
 async function getHistoryRecords() {
     try {
-        const records = await knex('assignment_4_check_table').select('id_check','final_amount','restaurant_name');
+        const records = await knex('checks').select('id_check','final_amount');
         return records;
     } catch (error) {
         console.error('Error:', error);
@@ -33,7 +33,7 @@ async function getHistoryRecords() {
 
 async function checkIfFAExists(finalAmount) {
     try {
-        const check = await knex('assignment_4_check_table').where('final_amount', finalAmount).first();
+        const check = await knex('checks').where('final_amount', finalAmount).first();
         return !!check; // Return true if check exists, false otherwise
     } catch (error) {
         console.error('Error:', error);
@@ -43,7 +43,7 @@ async function checkIfFAExists(finalAmount) {
 
 async function checkIfIdExists(id_check) {
     try {
-        const check = await knex('assignment_4_check_table').where('id_check', id_check).first();
+        const check = await knex('checks').where('id_check', id_check).first();
         return !!check; // Return true if check exists, false otherwise
     } catch (error) {
         console.error('Error:', error);
@@ -51,9 +51,10 @@ async function checkIfIdExists(id_check) {
     }
 }
 
+
 async function getCheckDetailsByFA(finalAmount) {
     try {
-      const checkDetails = await knex('assignment_4_check_table').where('final_amount', finalAmount).first();
+      const checkDetails = await knex('checks').where('final_amount', finalAmount).first();
       return checkDetails;
     } catch (error) {
       console.error('Error:', error);
@@ -68,7 +69,7 @@ async function deleteCheck(id_check) {
             return { success: false, message: 'Check not found' };
         }
 
-        await knex('assignment_4_check_table').where('id_check', id_check).del();
+        await knex('checks').where('id_check', id_check).del();
 
         return { success: true, message: 'Deletion successful, reload the page to see the changes.' };
     } catch (error) {
@@ -77,6 +78,8 @@ async function deleteCheck(id_check) {
     }
 }
 
+
+/*
 async function updateCheck(id_check, newRestaurantName) {
     try {
         const checkExists = await checkIfIdExists(id_check);
@@ -84,14 +87,13 @@ async function updateCheck(id_check, newRestaurantName) {
             return { success: false, message: 'Check not found' };
         }
 
-        await knex('assignment_4_check_table').where('id_check', id_check).update('restaurant_name', newRestaurantName);
+        await knex('checks').where('id_check', id_check).update('restaurant_name', newRestaurantName);
 
         return { success: true, message: 'Update successful, reload the page to see the changes.' };
     } catch (error) {
         console.error('Error:', error);
         return { success: false, message: 'Error updating the check' };
     }
-}
+}*/
 
-
-module.exports = { addToHistory, getHistoryRecords, getCheckDetailsByFA, checkIfFAExists, checkIfIdExists, deleteCheck, updateCheck };
+module.exports = { addToHistory, getHistoryRecords, getCheckDetailsByFA, checkIfFAExists, checkIfIdExists, deleteCheck};
