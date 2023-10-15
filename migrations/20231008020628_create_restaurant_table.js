@@ -9,6 +9,7 @@ exports.up = async knex => {
       table.string('address');
       table.integer('grade');
       table.string('category');
+      table.integer('associated_user').references('id_user').inTable('users');
       });
   };
   
