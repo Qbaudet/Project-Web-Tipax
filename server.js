@@ -1,18 +1,20 @@
-const express = require('express');
 const calculateFinalAmount = require('./utils');
-const knex = require('./database/database.js');
 const { addToHistory, getHistoryRecords, getCheckDetailsByFA, checkIfFAExists, checkIfIdExists, deleteCheck } = require('./services/checks.js');
+const { addRestaurant } = require('./services/restaurants.js');
+const bodyParser = require('body-parser');
 
+//Setting up the express
+const express = require('express');
 const app = express();
 
+//Set port number
 const port = 3000;
 
-const bodyParser = require('body-parser');
+
 app.use(bodyParser.json());
-
 app.use(express.json());
-
 app.use(express.static(__dirname + '/site_files'));
+
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/site_files/index.html');
@@ -106,6 +108,22 @@ app.post('/add-to-history', async (req, res) => {
         res.status(500).json({ message: result.message });
     }
 });
+
+
+
+app.post('/add-restaurant', async (req, res) => {
+    const restaurantInfo = req.body;
+    console.log(restaurantInfo);
+    const result = await addRestaurant({ restaurantInfo });
+
+    if (result.success) {
+        res.status(200).json({ message: result.message, record: result.record });
+    } else {
+        res.status(500).json({ message: result.message });
+    }
+});
+
+
 
 app.all('*', (req, res) => {
     res.status(404).send('404 Not Found');
