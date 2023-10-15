@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="login-form">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // Retrieve the user's input
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Here, you can add logic to check the email and password against a database of users.
+            // For security reasons, this should be done on the server-side.
+            // If the email and password match a user, you would typically create a session or token for the user.
+
+            // For demonstration purposes, you can display a message.
+            if (email === "user@example.com" && password === "password123") {
+                alert("Login successful");
+            } else {
+                alert("Login failed. Please check your email and password.");
+            }
+        });
+    </script>
+</body>
+</html>
