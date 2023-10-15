@@ -14,4 +14,11 @@ at least three migrations, divided logically (eg. tables, then join tables, then
 one with at least two records of fake data for every table
 one to initialize your production site (which will likely be much simpler, as it won't have fake data, just your user and whatever records you want your site to start out having)
 
-- Crypt Password of databse (maybe)
+- Crypt Password of database (maybe)
+
+- Interfaces for the databases (mostly frontend bc the databases functions are not ready):
+Adding a restaurant (filling the restaurant table), its meals (filling the meals/menu tables)
+
+
+- UI for the check history (comme le site de maxime, des espèces de cartes pour chaque addition) :
+sur chaque carte afficher les infos des checks, nom du resto (une fois que les tables seront reliées, boutonn pour avoir encore plus de détails sur les plats spécifiques par exemple) 
