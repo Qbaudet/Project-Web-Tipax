@@ -131,6 +131,35 @@ app.post('/add-restaurant', async (req, res) => {
 });
 
 
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+
+    if (username === 'admin' && password === 'admin') {
+        // For testing purposes, let's set a cookie to simulate session
+        res.cookie('user', username);
+        res.redirect('/'); // Redirect to a dashboard or another page
+    } else {
+        res.send('Invalid username or password'); // Handle login failure
+    }
+});
+
+app.post('/create-user', (req, res) => {
+    const { username, password } = req.body;
+
+    // Insert the user into the database using Knex
+    knex('users')
+        .insert({ username, password })
+        .returning('id')
+        .then(userId => {
+            res.json({ success: true, userId: userId[0] });
+        })
+        .catch(err => {
+            console.error(err);
+            res.json({ success: false, error: 'Failed to create user' });
+        });
+});
+
 
 app.all('*', (req, res) => {
     res.status(404).send('404 Not Found');

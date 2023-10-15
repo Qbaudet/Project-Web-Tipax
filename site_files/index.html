@@ -90,20 +90,29 @@
             </div>
             <br><br><br>
             <h5>Here is the most recent check you calculated:</h5>
-                </div>
+
                 </div>
             </div>
 
         </div>
 
-        </div>
-            </div>
+    </div>
 
-        </div>
+    <script>
+        const { createApp, ref } = Vue
 
-      </div>
+        const app = createApp({
+            setup() {
+                const calculatedTab = ref(false);
 
+                // Method to set calculatedTab to true
+                const setCalculatedTabTrue = () => {
+                    const basePriceInput = $refs.basePriceInput;
+                    const taxRateInput = $refs.taxRateInput;
+                    const tipRateInput = $refs.tipRateInput;
+                    const restaurantNameInput = $refs.restaurantNameInput;
 
+                    // Perform form validation using these references
 
                     if (!basePriceInput.value || !taxRateInput.value || !tipRateInput.value || !restaurantNameInput.value) {
                         // Display an error message or take appropriate action
@@ -111,16 +120,16 @@
                     }
                     calculatedTab.value = true;
                 }
-    
-                    if (!basePriceInput.value || !taxRateInput.value || !tipRateInput.value || !restaurantNameInput.value) {
-                        // Display an error message or take appropriate action
-                        return;
-                    }
-                    calculatedTab.value = true;
+
+                return {
+                    calculatedTab,
+                    setCalculatedTabTrue, // Expose the method to the template
                 }
+            }
+        }).mount('#app')
 
+    </script>
 
-    
 </body>
 
 </html>
