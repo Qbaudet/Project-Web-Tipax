@@ -14,10 +14,10 @@ async function addRestaurant({ restaurantInfo }) {
             associated_user: null
         }).returning('*'); 
 
-        return { success: true, message: 'Check added to history successfully, here is the json object of the record you inserted:\n', record: insertedRecord };
+        return { success: true};
     } catch (error) {
         console.error('Error:', error);
-        return { success: false, message: 'Failed to add check to history' };
+        return { success: false};
     }
 }
 

@@ -121,12 +121,13 @@ app.post('/add-to-history', async (req, res) => {
 
 app.post('/add-restaurant', async (req, res) => {
     const restaurantInfo = req.body;
-    const result = await addRestaurant({ restaurantInfo });
-
-    if (result.success) {
-        res.status(200).json({ message: result.message, record: result.record });
-    } else {
-        res.status(500).json({ message: result.message });
+    try {   
+        await addRestaurant({ restaurantInfo });
+        // If successful, send a success response
+        res.status(200).json({ success: true, message: "Your restaurant was successfully added!" });
+    } catch (error) {
+        // If there was an error, send an error response
+        res.status(500).json({ success: false, message: "There was an error while adding your restaurant." });
     }
 });
 

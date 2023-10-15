@@ -52,17 +52,15 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 // Handle the server's response here
         
+                const MessageElement = document.getElementById("message");
                 if (data.success) {
-                    // Restaurant was added successfully
-                    const successMessageElement = document.getElementById("success-message");
-                    successMessageElement.style.display = "block";
-                    successMessageElement.innerText = "Your restaurant was successfully added!";
+                    // Restaurant was added successfull
+                    MessageElement.innerText = "Your restaurant was successfully added!";
                 } else {
                     // There was an error
-                    const errorMessageElement = document.getElementById("error-message");
-                    errorMessageElement.style.display = "block";
-                    errorMessageElement.innerText = "There was an error while adding your restaurant.";
+                    MessageElement.innerText = "There was an error while adding your restaurant.";
                 }
+                MessageElement.style.display = "block";
             })
             .catch(error => console.error("Error:", error));
         }
