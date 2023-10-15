@@ -1,12 +1,16 @@
-const express = require('express');
+
 const calculateFinalAmount = require('./utils');
 const { addToHistory, getHistoryRecords, getCheckDetailsByFA, checkIfFAExists, checkIfIdExists, deleteCheck } = require('./services/checks.js');
 const { addRestaurant } = require('./services/restaurants.js');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const knex = require('./database/database.js');
 
 //Setting up the express
 const express = require('express');
 const app = express();
+
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -22,7 +26,7 @@ app.use(express.static(__dirname + '/site_files'));
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/site_files/index.html');
-});
+  });
 
 // Serve the history.html file
 app.get('/history', (req, res) => {
@@ -57,11 +61,11 @@ app.get('/history/check/validate/:finalAmount', async (req, res) => {
 app.get('/history/check/:finalAmount', async (req, res) => {
     const finalAmount = req.params.finalAmount;
     try {
-        const checkDetails = await getCheckDetailsByFA(finalAmount);
-        res.json(checkDetails);
+    const checkDetails = await getCheckDetailsByFA(finalAmount);
+    res.json(checkDetails);
     } catch (error) {
-        console.error('Error:', error);
-        res.status(500).send('Error fetching check details from the database');
+    console.error('Error:', error);
+    res.status(500).send('Error fetching check details from the database');
     }
 });
 
@@ -97,15 +101,15 @@ app.post('/calculateFinalAmount', (req, res) => {
     const tipRate = parseFloat(req.body.tipRate);
     const finalAmount = calculateFinalAmount(checkBasePrice, taxRate, tipRate);
     // Send the result as JSON
-    res.json({ checkBasePrice, finalAmount });
+    res.json({checkBasePrice, finalAmount});
 });
 
 
 app.post('/add-to-history', async (req, res) => {
     const { checkBasePrice, taxRate, tipRate, finalAmount, restaurantName } = req.body;
-
+    
     const result = await addToHistory({ checkBasePrice, taxRate, tipRate, finalAmount, restaurantName });
-
+    
     if (result.success) {
         res.status(200).json({ message: result.message, record: result.record });
     } else {
@@ -113,9 +117,10 @@ app.post('/add-to-history', async (req, res) => {
     }
 });
 
+
+
 app.post('/add-restaurant', async (req, res) => {
     const restaurantInfo = req.body;
-    console.log(restaurantInfo);
     const result = await addRestaurant({ restaurantInfo });
 
     if (result.success) {
@@ -125,41 +130,12 @@ app.post('/add-restaurant', async (req, res) => {
     }
 });
 
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-
-
-    if (username === 'admin' && password === 'admin') {
-        // For testing purposes, let's set a cookie to simulate session
-        res.cookie('user', username);
-        res.redirect('/'); // Redirect to a dashboard or another page
-    } else {
-        res.send('Invalid username or password'); // Handle login failure
-    }
-});
-
-app.post('/create-user', (req, res) => {
-    const { username, password } = req.body;
-
-    // Insert the user into the database using Knex
-    knex('users')
-        .insert({ username, password })
-        .returning('id')
-        .then(userId => {
-            res.json({ success: true, userId: userId[0] });
-        })
-        .catch(err => {
-            console.error(err);
-            res.json({ success: false, error: 'Failed to create user' });
-        });
-});
-
 
 
 app.all('*', (req, res) => {
     res.status(404).send('404 Not Found');
 });
 
-app.listen(port, function () {
+app.listen(port, function() {
     console.log('Server listening on http://localhost:' + port);
 });

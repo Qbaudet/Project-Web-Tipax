@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     
     document.getElementById("r_submit").addEventListener("click", function () {
+        event.preventDefault();
         // Send the data to the server using the Fetch API
         fetch("/add-restaurant", {
             method: "POST",
@@ -44,8 +45,20 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.json())
         .then(data => {
             // Handle the server's response here
-            console.log("Data sent successfully:", data);
+    
+            if (data.success) {
+                // Restaurant was added successfully
+                const successMessageElement = document.getElementById("success-message");
+                successMessageElement.style.display = "block";
+                successMessageElement.innerText = "Your restaurant was successfully added!";
+            } else {
+                // There was an error
+                const errorMessageElement = document.getElementById("error-message");
+                errorMessageElement.style.display = "block";
+                errorMessageElement.innerText = "There was an error while adding your restaurant.";
+            }
         })
         .catch(error => console.error("Error:", error));
     });
+    
 });
