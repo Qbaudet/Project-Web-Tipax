@@ -1,4 +1,6 @@
-INSERT INTO Users (id_user, username, password) 
+-- noinspection SqlNoDataSourceInspectionForFile
+
+INSERT INTO Users (id_user, username, password)
 VALUES 
 (1,'James', '@fqdsioufe44324JDFIC81&'),
 (2,'Amy', 'jfdsq`@fjiroezPQDSFfmfefqjd'),
