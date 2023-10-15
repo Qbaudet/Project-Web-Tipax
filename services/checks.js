@@ -1,5 +1,5 @@
 const knex = require('../database/database.js');
-const { getRestaurantIdByName } = require('./restaurants.js');
+const { getRestaurantIdByName, getRestaurantNameById } = require('./restaurants.js');
 
 
 
@@ -27,12 +27,29 @@ async function addToHistory({ checkBasePrice, taxRate, tipRate, finalAmount, res
 async function getHistoryRecords() {
     try {
         const records = await knex('checks').select('*');
+
+        // Create an array of promises to fetch restaurant names for each record
+        const promises = records.map(async (record) => {
+            if (record.associated_restaurant !== null) {
+                const restaurantName = await getRestaurantNameById(record.associated_restaurant);
+                record.associated_restaurant = restaurantName;
+            }
+            else {
+                record.associated_restaurant = 'No restaurant associated';
+            }
+            return record;
+        });
+
+        // Wait for all promises to resolve
+        await Promise.all(promises);
+
         return records;
     } catch (error) {
         console.error('Error:', error);
         throw error;
     }
 }
+
 
 async function checkIfFAExists(finalAmount) {
     try {

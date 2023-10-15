@@ -10,6 +10,7 @@ const bcrypt = require('bcrypt');
 
 //Setting up the express
 const express = require('express');
+const {getRestaurantNameById} = require("./services/restaurants");
 const app = express();
 
 
@@ -66,6 +67,18 @@ app.get('/history/check/validate/:finalAmount', async (req, res) => {
         res.status(500).send('Error checking if final amount exists');
     }
 });
+
+app.get('/restaurant/:id', async (req, res) => {
+    const restaurantId = req.params.id;
+
+    try {
+        const restaurant = await getRestaurantNameById(restaurantId);
+        res.json(restaurant);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching restaurant data' });
+    }
+});
+
 
 
 // Fetch and send the check details for a specific ID as JSON
