@@ -9,9 +9,13 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="home_script.js"></script>
+
 </head>
 
 <body>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
@@ -48,48 +52,87 @@
         </nav>
     </header>
 
+    <div id="app">
 
-    <h2>The website that makes your check calculations a breeze !</h2>
 
-    <div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="content">
-                <div class="home-form-container">
-                    <form id="calculateForm">
-                        <label for="basePrice">Enter the check amount without tax:</label>
-                        <input type="number" id="basePrice" name="basePrice" required step="0.01" min="0">
-                        <br>
-                        <label for="taxRate">Enter the tax % of your city (0-100%):</label>
-                        <input type="number" id="taxRate" name="taxRate" required step="0.01" min="0" max="100">
-                        <br>
-                        <label for="tipRate">Enter the tip % you want to give (0-100%):</label>
-                        <input type="number" id="tipRate" name="tipRate" required step="0.01" min="0" max="100">
-                        <br>
-                        <label for="restaurantName">Enter the name of the restaurant:</label>
-                        <input type="text" id="restaurantName" name="restaurantName" required>
-                        <input type="submit" value="Submit">
-                    </form>
+
+        <h2>The website that makes your check calculations a breeze !</h2>
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="content">
+                        <div class="home-form-container">
+                            <form id="calculateForm">
+                                <label for="basePrice">Enter the check amount without tax:</label>
+                                <input type="number" id="basePrice" name="basePrice" required step="0.01" min="0">
+                                <br>
+                                <label for="taxRate">Enter the tax % of your city (0-100%):</label>
+                                <input type="number" id="taxRate" name="taxRate" required step="0.01" min="0" max="100">
+                                <br>
+                                <label for="tipRate">Enter the tip % you want to give (0-100%):</label>
+                                <input type="number" id="tipRate" name="tipRate" required step="0.01" min="0" max="100">
+                                <br>
+                                <label for="restaurantName">Enter the name of the restaurant:</label>
+                                <input type="text" id="restaurantName" name="restaurantName" required>
+                                <input type="submit" value="Submit" @click="setCalculatedTabTrue">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <br>
+                    <div id="resultDiv">
+                        <h3 id="result">The final check amount including taxes and tips is:</h3>
+                        <p id="finalAmount"></p>
+
+                        <button id="addToHistory" :disabled="!calculatedTab" @click="addToHistoryClick">Add this check
+                            to the history</button>
+
+
+                    </div>
+                    <br><br><br>
+                    <h5>Here is the most recent check you calculated:</h5>
+
                 </div>
             </div>
-          </div>
-          <div class="col">
-            <br>
-            <div id="resultDiv">
-                <h3 id="result">The final check amount including taxes and tips is:</h3>
-                <p id="finalAmount"></p>
-                <button id="addToHistory" style="display: none;">Add this check to the history</button>
-            </div>
-            <br><br><br>
-            <h5>Here is the most recent check you calculated:</h5>
 
         </div>
-      </div>
 
-    
+    </div>
 
+    <script>
+        const { createApp, ref } = Vue
 
-    
+        const app = createApp({
+            setup() {
+                const calculatedTab = ref(false);
+
+                // Method to set calculatedTab to true
+                const setCalculatedTabTrue = () => {
+                    const basePriceInput = $refs.basePriceInput;
+                    const taxRateInput = $refs.taxRateInput;
+                    const tipRateInput = $refs.tipRateInput;
+                    const restaurantNameInput = $refs.restaurantNameInput;
+
+                    // Perform form validation using these references
+
+                    if (!basePriceInput.value || !taxRateInput.value || !tipRateInput.value || !restaurantNameInput.value) {
+                        // Display an error message or take appropriate action
+                        return;
+                    }
+                    calculatedTab.value = true;
+                }
+
+                return {
+                    calculatedTab,
+                    setCalculatedTabTrue, // Expose the method to the template
+                }
+            }
+        }).mount('#app')
+
+    </script>
+
 </body>
 
 </html>

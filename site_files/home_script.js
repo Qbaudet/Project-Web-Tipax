@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     calculateForm.addEventListener('submit', function (event) {
         event.preventDefault();
+
+
+
         checkBasePrice = parseFloat(document.getElementById('basePrice').value);
         const taxRate = parseFloat(document.getElementById('taxRate').value);
         const tipRate = parseFloat(document.getElementById('tipRate').value);
@@ -25,57 +28,58 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
      // Function to handle adding the check to history
-     const addToHistory = () => {
-        const taxRate = parseFloat(document.getElementById('taxRate').value);
-        const tipRate = parseFloat(document.getElementById('tipRate').value);
-        const restaurantName = document.getElementById('restaurantName').value;
-        let responseStatus;
-    
-        // Fetch the finalAmount from the /calculateFinalAmount endpoint
-        fetch('/calculateFinalAmount', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ checkBasePrice, taxRate, tipRate, restaurantName}),
+     // Function to handle adding the check to history
+const addToHistory = () => {
+    const taxRate = parseFloat(document.getElementById('taxRate').value);
+    const tipRate = parseFloat(document.getElementById('tipRate').value);
+    const restaurantName = document.getElementById('restaurantName').value;
+    let responseStatus;
+  
+    // Fetch the finalAmount from the /calculateFinalAmount endpoint
+    fetch('/calculateFinalAmount', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ checkBasePrice, taxRate, tipRate, restaurantName }),
+    })
+      .then((response) => {
+        responseStatus = response.status; // Capture the status here
+        return response.json();
+      })
+      .then((data) => {
+        const finalAmount = data.finalAmount.toFixed(2);
+  
+        fetch('/add-to-history', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            checkBasePrice,
+            taxRate,
+            tipRate,
+            finalAmount,
+            restaurantName,
+          }),
         })
-        .then((response) => {
-            responseStatus = response.status; // Capture the status here
-            return response.json();
-        })
-        .then((data) => {
-            const finalAmount = data.finalAmount.toFixed(2);
-    
-            fetch('/add-to-history', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    checkBasePrice,
-                    taxRate,
-                    tipRate,
-                    finalAmount,
-                    restaurantName,
-                }),
-            })
-            .then((response) => response.json())
-            .then((result) => {
-                if (responseStatus === 200) { // Check if the request was successful
-                    // Display the success message and record in an alert
-                    alert(`${result.message}\nRecord: ${JSON.stringify(result.record)}`);
-                } else {
-                    alert('Failed to add check to history.');
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        })
-        .catch((error) => {
+          .then((response) => response.json())
+          .then((result) => {
+            if (responseStatus === 200) {
+              alert(`${result.message}\nRecord: ${JSON.stringify(result.record)}`);
+            } else {
+              alert('Failed to add check to history.');
+            }
+          })
+          .catch((error) => {
             console.error('Error:', error);
-        });
-    };
+          });
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+  
     
     
     
@@ -89,4 +93,5 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
 

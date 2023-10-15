@@ -69,11 +69,23 @@ input[type="submit"] {
     padding: 10px 25px;
     border: none;
     border-radius: 15px;
-    cursor: pointer;
     font-size: 15px;
     font-weight: bold;
     font-family: Arial, sans-serif;
 }
+
+#addToHistory:disabled {
+    background-color: #ababab;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
+
 
 /* CSS for Enter id_check form */
 .history-form-container {

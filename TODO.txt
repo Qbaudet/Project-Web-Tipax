@@ -3,10 +3,11 @@
 For example, button grey for add to history unless you calculated something
 
 
+
 - Better tables for the database 
 
 3 tables :
-Checks (history) / Restaurants ? / Meals (Menu) / Users (hash password)
+Checks (history) / Restaurants  / Users (hash password)
 at least three migrations, divided logically (eg. tables, then join tables, then constraints, or user tables, book and author tables, and review tables, etc.)
 
 2 seed files:
