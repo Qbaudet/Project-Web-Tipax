@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-
+    /*
     document.getElementById('updateCheckForm').addEventListener('submit', async (event) => {
         event.preventDefault(); // Prevent the default form submission
         const id_check = document.getElementById('updateId').value;
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error:', error);
             alert('Failed to update check.');
         }
-    });
+    });*/
 
     document.getElementById('deleteCheckForm').addEventListener('submit', async (event) => {
         event.preventDefault(); // Prevent the default form submission
