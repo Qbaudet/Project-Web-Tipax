@@ -139,5 +139,8 @@ input[type="submit"] {
 }
 
 
+#success-message, #error-message {
+    text-align: center;
+}
 
 
