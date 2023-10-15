@@ -18,6 +18,12 @@ h2{
     margin-top: 20px;
 }
 
+/* Style for the div containing the form of the restaurants*/
+#r_div {
+    margin-left: 10%;
+    position:relative;
+    float: left;
+}
 
 .home-form-container {
     text-align: center; /* Center-align the form contents */
@@ -105,17 +111,219 @@ input[type="submit"] {
     font-family: Arial, sans-serif;
 }
 
-#r_form{
+#r_form {
     width: 400px;
-    margin: 0 auto;
+    margin-left: 10 px;
     padding-top: 30px;
-    text-align: center;
+    text-align: left;
     margin-top: 20px;
 }
 
 #r_submit {
     margin-top: 20px;
+    margin-left: 30%;
+    text-align: center;
+}
+
+/* Stars rating style */
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    background-image: url('img/star_empty.jpg');
+    background-size: cover;
+    margin-right: auto;
+}
+
+.rating input:checked ~ label {
+    background-image: url('img/star_filled.jpg');
+}
+
+#message{
     text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+}
+
+
+#r_cards {
+    float: right;
+    width: 50%;
+}
+
+h3{
+    text-align: center;
+}
+
+.cards {
+    display:inline-block;
+    width: 500px;
+    margin-top: 60px;
+    margin-left: 20%;
+    padding: 20px;
+    text-align: center;
+    border-width: 1px 2px 3px 4px;
+    border-style: dashed solid dashed solid;
+    border-color: black;
+    background-color: #ebd9bf;
+    box-shadow: 2px 4px;
+}
+
+.logo {
+    float: left;
+    margin-right: 20px;
+    width: 30%;
+}
+
+.card_header {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card_body {
+    float: right;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}body {
+    margin: 0;
+    padding: 0px;
+    background-color: #EFE7DB;
+}
+
+header{
+    margin-bottom: 12px;
+}
+
+
+h2{
+    text-align: center;
+}
+
+.content {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Style for the div containing the form of the restaurants*/
+#r_div {
+    margin-left: 10%;
+    position:relative;
+    float: left;
+}
+
+.home-form-container {
+    text-align: center; /* Center-align the form contents */
+    padding: 20px; /* Add padding to the form container */
+}
+
+
+/* Style for form labels */
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Style for form inputs */
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Style for the "Submit" button */
+input[type="submit"] {
+    background-color: #7393B3;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
+/* Style for the "Add to History" button */
+#addToHistory {
+    background-color: #7393B3;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
+/* CSS for Enter id_check form */
+.history-form-container {
+    text-align: left;
+    padding: 20px;
+}
+
+/* Style for form labels */
+.form-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Style for form inputs */
+.form-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Style for the "Get Details" button */
+.form-button {
+    background-color: #7393B3;
+    color: white;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}
+
+#r_form {
+    width: 400px;
+    margin-left: 10 px;
+    padding-top: 30px;
+    text-align: left;
+    margin-top: 20px;
+}
+
+#r_submit {
+    margin-top: 20px;
+    margin-left: 30%;
+    text-align: center;
 }
 
 /* Stars rating style */
@@ -144,9 +352,52 @@ input[type="submit"] {
     background-image: url('img/star_filled.jpg'); 
 }
 
-
-#success-message, #error-message {
-    text-align: center;
+#message{
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
 }
 
 
+#r_cards {
+    float: right;
+    width: 50%;
+}
+
+h3{
+    text-align: center;
+}
+
+.cards {
+    display:inline-block;
+    width: 500px;
+    margin-top: 60px;
+    margin-left: 20%;
+    padding: 20px;
+    text-align: center;
+    border-width: 1px 2px 3px 4px;
+    border-style: dashed solid dashed solid;
+    border-color: black;
+    background-color: #ebd9bf;
+    box-shadow: 2px 4px;
+}
+
+.logo {
+    float: left;
+    margin-right: 20px;
+    width: 30%;
+}
+
+.card_header {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card_body {
+    float: right;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+}

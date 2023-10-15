@@ -6,56 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tipax</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="styles_restaurants.css">
     <script src="restaurants_script.js"></script>
 </head>
 
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-    <header>
+<header>
 
-        <nav class="navbar bg-body-tertiary navbar-expand-lg bg-dark border-bottom border-body"
-            style="background-color:#333;" data-bs-theme="dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="img/bill-2.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-                    <span class="navbar-brand mb-0 h1">Tipax</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+    <nav class="navbar bg-body-tertiary navbar-expand-lg bg-dark border-bottom border-body"
+         style="background-color:#333;" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="img/bill-2.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+                <span class="navbar-brand mb-0 h1">Tipax</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="history.html">History</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="restaurants.html">Restaurants</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="auth/login.html">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="auth/signup.html">Register</a>
-                        </li>
-                    </ul>
-                </div>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="history.html">History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="restaurants.html">Restaurants</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="auth/login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="auth/signup.html">Register</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
+<div id="r_div">
     <h2>Register your restaurant</h2>
     <form id="r_form">
         <label for="r_name">Write the name of your restaurant</label>
@@ -65,7 +66,7 @@
         <label for="r_category">Choose a category for your restaurant:</label>
 
         <select name="r_category" id="r_category">
-            <option disabled selected value> -- select an option -- </option>
+            <option disabled selected value> -- select an option --</option>
             <option value="japanese">Japanese food</option>
             <option value="chinese">Chinese food</option>
             <option value="mexican">Mexican food</option>
@@ -97,39 +98,56 @@
         </div>
     </form>
     <div id="message" style="display: none;"></div>
+</div>
+
+<div id="r_cards">
+    <h2>Restaurants previously added</h2>
+    <div class="cards">
+        <h3 class="card_header">Chipotle</h3>
+        <img src="/img/chipotle.jpg" alt="logo chipotle" class="logo">
+        <div class="card_body">
+            <p class="address">2777 Alton Parkway</p>
+            <p class="category">Food_truck</p>
+            <p class="ranking">3 stars</p>
+        </div>
+    </div>
+    <div id="restaurant-list">
+        <!-- This is where the new cards will be added -->
+    </div>
+</div>
 
 
-    <script>
-        const { createApp, ref, computed } = Vue
+<script>
+    const {createApp, ref, computed} = Vue
 
-        createApp({
-            setup() {
-                const selectedRating = ref(null)
+    createApp({
+        setup() {
+            const selectedRating = ref(null)
 
-                const ratingMessage = computed(() => {
-                    switch (selectedRating.value) {
-                        case '1':
-                            return 'Terrible'
-                        case '2':
-                            return 'Meh'
-                        case '3':
-                            return 'Great'
-                        case '4':
-                            return 'Good'
-                        case '5':
-                            return 'Excellent'
-                        default:
-                            return ''
-                    }
-                })
-
-                return {
-                    selectedRating,
-                    ratingMessage,
+            const ratingMessage = computed(() => {
+                switch (selectedRating.value) {
+                    case '1':
+                        return 'Terrible'
+                    case '2':
+                        return 'Meh'
+                    case '3':
+                        return 'Great'
+                    case '4':
+                        return 'Good'
+                    case '5':
+                        return 'Excellent'
+                    default:
+                        return ''
                 }
+            })
+
+            return {
+                selectedRating,
+                ratingMessage,
             }
-        }).mount('#app')
-    </script>
+        }
+    }).mount('#app')
+</script>
 </body>
 
 </html>
