@@ -19,10 +19,25 @@ function createCard(record) {
     const formattedDate = dateObject.toISOString().split('T')[0];
     cardText2.textContent = `Date: ${formattedDate}`;
 
+    const cardText3 = document.createElement('p');
+    cardText3.classList.add('card-text');
+    if (record.associated_restaurant == null) {
 
+    }else {
+        cardText3.textContent = `Restaurant: ${record.associated_restaurant}`;
+    }
+
+
+    cardTitle.style.textAlign = 'center';
     cardBody.appendChild(cardTitle);
     cardBody.appendChild(cardText2);
+    cardBody.appendChild(cardText3);
     card.appendChild(cardBody);
+    card.style.width = '100%';
+    card.style.backgroundColor = '#ebd9bf';
+    card.style.borderStyle = 'dashed solid dashed solid';
+    card.style.borderColor = 'black';
+    card.style.borderWidth = "1px 2px 3px 4px";
 
     return card;
 }
@@ -66,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const latestRecord = data.reduce((prev, current) => (prev.id > current.id ? prev : current), {});
 
             const recordsDiv = document.getElementById('records');
+            console.log(latestRecord);
             const card = createCard(latestRecord);
             recordsDiv.appendChild(card);
         })

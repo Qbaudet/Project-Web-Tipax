@@ -179,16 +179,15 @@ app.post('/add-user', async (req, res) => {
     const { username, password } = req.body;
     const hash = await bcrypt.hash(password, 10);
     // Insert the user into the database using Knex
-    try {   
+    try {
         const result = await addUser({ username, hash });
-        // If successful, send a success response
         if (result.success){
-            res.status(200).json({ success: true, message: "Your user was successfully added!" });
+            // User added successfully, redirect to the root ("/") route
+            res.redirect('/');
         } else {
             res.status(200).json({ success: false, message: "There was an error while adding your user." });
         }
     } catch (error) {
-        // If there was an error, send an error response
         res.status(500).json({ success: false, message: "Server error" });
     }
 });

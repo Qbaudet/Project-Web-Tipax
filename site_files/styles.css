@@ -141,3 +141,8 @@ input[type="submit"], #addRestaurantButton {
     border-radius: 5px;
     font-size: 16px;
 }
+
+.navbar-nav.ml-auto .nav-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

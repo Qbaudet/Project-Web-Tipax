@@ -32,11 +32,18 @@ function createCard(record) {
     const formattedDate = dateObject.toISOString().split('T')[0];
     cardText2.textContent = `Date: ${formattedDate}`;
 
+    cardTitle.style.textAlign = 'center';
     card.appendChild(cardTitle);
     card.appendChild(cardText1);
     card.appendChild(cardText2);
     card.appendChild(cardText3);
     cardContainer.appendChild(card);
+
+    card.style.width = '100%';
+    card.style.backgroundColor = '#ebd9bf';
+    card.style.borderStyle = 'dashed solid dashed solid';
+    card.style.borderColor = 'black';
+    card.style.borderWidth = "1px 2px 3px 4px";
 
     return cardContainer;
 }
