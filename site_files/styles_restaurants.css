@@ -234,3 +234,9 @@ footer{
         width: 80%; 
     }
 }
+
+
+.navbar-nav.ml-auto .nav-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
