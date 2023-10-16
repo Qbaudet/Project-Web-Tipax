@@ -10,7 +10,7 @@ module.exports = {
     connection: {
       database: 'tipax_database',
       user: 'max',
-      password: null
+      password: 'n'
     },
     pool: {
       min: 2,

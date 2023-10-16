@@ -55,7 +55,7 @@
         </div>
     </nav>
 </header>
-
+<!-- Creation of the form -->
 <div id="r_div">
     <h2>Register your restaurant</h2>
     <form id="r_form">
@@ -65,18 +65,20 @@
         <input type="text" id="r_local" name="r_local">
         <label for="r_category">Choose a category for your restaurant:</label>
 
-        <select name="r_category" id="r_category">
-            <option disabled selected value> -- select an option --</option>
-            <option value="japanese">Japanese food</option>
-            <option value="chinese">Chinese food</option>
-            <option value="mexican">Mexican food</option>
-            <option value="french">French food</option>
-            <option value="american">American food</option>
-            <option value="food_truck">Food_truck</option>
-            <option value="bar">Bar</option>
-            <option value="pizzeria">Pizzeria</option>
+        <select name="r_category" id="r_category" class="form-input">
+            <option disabled selected value> -- select an option --</option> <!-- Default value is a blank space -->
+            <option value="American food">American food</option>
+            <option value="Japanese food">Japanese food</option>
+            <option value="Mexican food">Mexican food</option>
+            <option value="Chinese food">Chinese food</option>
+            <option value="French food">French food</option>
+            <option value="Italian food">Italian food</option>
+            <option value="Food_truck">Food_truck</option>
+            <option value="Pizzeria">Pizzeria</option>
+            <option value="Bar">Bar</option>
         </select>
 
+        <!-- Creation of the ranking system -->
         <div id="app">
             <label for="r_rating">Rate your restaurant</label>
             <div class="rating">
@@ -92,28 +94,29 @@
                 <label for="star1" title="1 star"></label>
             </div>
             <span id="rating-value"></span>
-            <p>{{ratingMessage}}</p>
+            <p id="rating_message">{{ratingMessage}}</p>
             <input type="submit" value="Submit" id="r_submit">
-
         </div>
     </form>
     <div id="message" style="display: none;"></div>
 </div>
 
+<!-- Creation of the cards -->
 <div id="r_cards">
     <h2>Restaurants previously added</h2>
     <div class="cards">
         <h3 class="card_header">Chipotle</h3>
-        <img src="/img/chipotle.jpg" alt="logo chipotle" class="logo">
+            <img src="/img/mexican.png" alt="logo restaurant" class="logo">
         <div class="card_body">
             <p class="address">2777 Alton Parkway</p>
-            <p class="category">Food_truck</p>
-            <p class="ranking">3 stars</p>
+            <p class="category">Mexican food</p>
+            <p class="ranking">4 stars</p>
         </div>
     </div>
     <div id="restaurant-list">
-        <!-- This is where the new cards will be added -->
+        <!-- This is where the new cards will be added dynamically -->
     </div>
+    <div style="height:20px"></div>
 </div>
 
 
@@ -131,9 +134,9 @@
                     case '2':
                         return 'Meh'
                     case '3':
-                        return 'Great'
-                    case '4':
                         return 'Good'
+                    case '4':
+                        return 'Great'
                     case '5':
                         return 'Excellent'
                     default:
@@ -148,6 +151,10 @@
         }
     }).mount('#app')
 </script>
+<footer>
+
+</footer>
 </body>
+
 
 </html>
