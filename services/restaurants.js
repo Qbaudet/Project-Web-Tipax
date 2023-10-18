@@ -62,6 +62,24 @@ async function getRestaurantsRecords() {
 }
 
 
+/*
+async function updateRestaurants(restaurant_name, restaurant_name) {
+    try {
+        const checkExists = await checkIfIdExists(id_check);
+        if (!checkExists) {
+            return { success: false, message: 'Check not found' };
+        }
+
+        await knex('checks').where('id_check', id_check).update('restaurant_name', newRestaurantName);
+
+        return { success: true, message: 'Update successful, reload the page to see the changes.' };
+    } catch (error) {
+        console.error('Error:', error);
+        return { success: false, message: 'Error updating the check' };
+    }
+}*/
+
+
 module.exports = {
     addRestaurant,
     getRestaurantNames,

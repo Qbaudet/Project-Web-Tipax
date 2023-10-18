@@ -222,8 +222,19 @@ div.card_body{
     font-family: Arial, sans-serif;
 }
 
+
+
 footer{
     height:40px
+}
+
+#deleteRestaurantForm {
+    text-align: left;
+    float: left;
+}
+
+#deleteRestaurant {
+    margin-top: 50px;
 }
 
 /* Use a media query to switch to a column layout on smaller screens */

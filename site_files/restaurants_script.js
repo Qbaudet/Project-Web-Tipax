@@ -96,6 +96,29 @@ document.addEventListener('DOMContentLoaded', function () {
                 r_rating: ""
             };
         }
+
+        document.getElementById('deleteRestaurantForm').addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent the default form submission
+            const name_restaurant = document.getElementById('deleterestaurant').value;
+    
+            // Send an HTTP POST request to delete the restaurant
+            try {
+                const response = await fetch(`/restaurants/delete/${name_restaurant}`, {
+                    method: 'POST',
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Failed to delete restaurant');
+                }
+    
+                const deleteRestaurantResult = await response.json();
+                const deleteRestaurantResultDiv = document.getElementById('deleteRestaurantResult');
+    
+                deleteRestaurantResultDiv.innerText = JSON.stringify(deleteRestaurantResult);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to delete restaurant.');
+            }
     }) ;
     
 });
