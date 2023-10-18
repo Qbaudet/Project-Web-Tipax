@@ -3,7 +3,6 @@ const knex = require('../database/database.js');
 
 //Create endpoint
 async function addRestaurant({ restaurantInfo }) {
-    
     try {
         // Insert data into the "checks" table
         const [insertedRecord] = await knex('restaurants').insert({
@@ -16,7 +15,7 @@ async function addRestaurant({ restaurantInfo }) {
 
         return { success: true};
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error here:', error);
         return { success: false};
     }
 }
@@ -61,6 +60,32 @@ async function getRestaurantsRecords() {
     }
 }
 
+async function restaurantExists(nameRestaurant) {
+    try {
+        const restaurant = await knex('restaurants').where('restaurant_name', nameRestaurant).first();
+        return !!restaurant; // Return true if check exists, false otherwise
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
+async function deleteRestaurant(nameRestaurant) {
+    try {
+        const checkExists = await restaurantExists(nameRestaurant);
+        if (!checkExists) {
+            return { success: false, message: 'Restaurant not found' };
+        }
+
+        await knex('restaurants').where('restaurant_name', nameRestaurant).del();
+
+        return { success: true, message: 'Deletion successful, reload the page to see the changes.' };
+    } catch (error) {
+        console.error('Error:', error);
+        return { success: false, message: 'Error deleting the check' };
+    }
+}
+
 
 /*
 async function updateRestaurants(restaurant_name, restaurant_name) {
@@ -80,10 +105,13 @@ async function updateRestaurants(restaurant_name, restaurant_name) {
 }*/
 
 
+
+
 module.exports = {
     addRestaurant,
     getRestaurantNames,
     getRestaurantIdByName,
     getRestaurantNameById,
-    getRestaurantsRecords
+    getRestaurantsRecords,
+    deleteRestaurant
 };

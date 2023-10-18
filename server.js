@@ -11,6 +11,7 @@ const bcrypt = require('bcrypt');
 //Setting up the express
 const express = require('express');
 const {getRestaurantNameById} = require("./services/restaurants");
+const{deleteRestaurant} = require("./services/restaurants");
 const app = express();
 
 
@@ -92,6 +93,7 @@ app.get('/restaurant/:id', async (req, res) => {
 
 
 
+
 // Fetch and send the check details for a specific ID as JSON
 app.get('/history/check/:finalAmount', async (req, res) => {
     const finalAmount = req.params.finalAmount;
@@ -114,6 +116,21 @@ app.post('/history/check/delete/:finalAmount', async (req, res) => {
         res.status(500).send('Error deleting the check');
     }
 });
+
+
+app.post('/restaurant/delete/:nameRestaurant', async (req, res) => {
+    const nameRestaurant = req.params.nameRestaurant;
+
+    try {
+        const deleteResult = await deleteRestaurant(nameRestaurant);
+        res.json(deleteResult);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Error deleting the check');
+    }
+});
+
+
 
 app.post('/history/check/update/:id_check/:newRestaurantName', async (req, res) => {
     const id_check = req.params.id_check;

@@ -74,9 +74,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 const MessageElement = document.getElementById("message");
                 if (data.success) {
                     // Restaurant was added successfull
+                    alert("✅ Yum Yum ! Restaurant successfully added!")
                     MessageElement.innerText = "Your restaurant was successfully added!";
                 } else {
                     // There was an error
+                    alert("❌ Oops ! Something went wrong. Please try again.")
                     MessageElement.innerText = "There was an error while adding your restaurant.";
                 }
                 MessageElement.style.display = "block";
@@ -104,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Send an HTTP POST request to delete the restaurant
         try {
-            const response = await fetch(`/restaurants/delete/${name_restaurant}`, {
+            const response = await fetch(`/restaurant/delete/${name_restaurant}`, {
                 method: 'POST',
             });
 
@@ -113,9 +115,17 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const deleteRestaurantResult = await response.json();
-            const deleteRestaurantResultDiv = document.getElementById('deleteRestaurantResult');
 
-            deleteRestaurantResultDiv.innerText = JSON.stringify(deleteRestaurantResult);
+            if (deleteRestaurantResult.success === true) {
+                alert('✅🎉 Hourray ! Restaurant Deleted 🎉✅');
+                location.reload();
+            }
+            else {
+                alert('❌ Deletion was not successful: ' + deleteRestaurantResult.message+ ' ❌');
+                return;
+            }
+
+
         } catch (error) {
             console.error('Error:', error);
             alert('Failed to delete restaurant.');
