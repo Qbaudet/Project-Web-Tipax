@@ -68,7 +68,7 @@ async function checkIfFAExists(finalAmount) {
 
 async function checkIfIdExists(id_check) {
     try {
-        const check = await knex('checks').where('id_check', id_check).first();
+        const check = await knex('checks').where('final_amount', id_check).first();
         return !!check; // Return true if check exists, false otherwise
     } catch (error) {
         console.error('Error:', error);
@@ -95,14 +95,14 @@ async function getCheckDetailsByFA(finalAmount) {
     }
 }
 
-async function deleteCheck(id_check) {
+async function deleteCheck(finalAmount) {
     try {
-        const checkExists = await checkIfIdExists(id_check);
+        const checkExists = await checkIfIdExists(finalAmount);
         if (!checkExists) {
             return { success: false, message: 'Check not found' };
         }
 
-        await knex('checks').where('id_check', id_check).del();
+        await knex('checks').where('final_amount', finalAmount).del();
 
         return { success: true, message: 'Deletion successful, reload the page to see the changes.' };
     } catch (error) {

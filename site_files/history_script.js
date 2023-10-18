@@ -163,11 +163,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('deleteCheckForm').addEventListener('submit', async (event) => {
         event.preventDefault(); // Prevent the default form submission
-        const id_check = document.getElementById('deleteId').value;
+        const finalAmount = document.getElementById('deleteId').value;
 
         // Send an HTTP POST request to delete the check
         try {
-            const response = await fetch(`/history/check/delete/${id_check}`, {
+            const response = await fetch(`/history/check/delete/${finalAmount}`, {
                 method: 'POST',
             });
 
@@ -176,9 +176,19 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             const deleteCheckResult = await response.json();
-            const deleteCheckResultDiv = document.getElementById('deleteCheckResult');
 
-            deleteCheckResultDiv.innerText = JSON.stringify(deleteCheckResult);
+            if (deleteCheckResult.success === true) {
+                // Check deleted successfully
+                alert('✅🎉 Hourray ! Check Deleted 🎉✅');
+                location.reload();
+            } else {
+                alert('❌ Deletion was not successful: ' + deleteCheckResult.message+ ' ❌');
+                return;
+            }
+
+
+
+
         } catch (error) {
             console.error('Error:', error);
             alert('Failed to delete check.');
