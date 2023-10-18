@@ -8,16 +8,17 @@
 
 * **Features**
 
-  The website will allow the user to _view the final price of his ckeck_ by letting him enter his city taxes and the tip amount.  
-  It will allow to see the history the user checks. And also display a list of restaurants to register the meals avaiable there 
+  The website will allow the user to _view the total price of his ckecks_ by letting him enter his city's tax rate and the tip amount. 
+  All of these checks can be stored on the users demand and can be viewed at any time, including the details of the check, at which restaurant was it and other information.
+  Finally, the user can also view a list of the restaurants he's been to by entering them.
 
 * **Tools**
 
-  This project use 
+  This project uses the following tools : 
   * HTML
   * CSS 
   * JS
   * Bootstrap (for the front-end) 
   * NodeJS
   * Knex
-  * Postgre Database 
+  * PostgreSQL Database 

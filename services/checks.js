@@ -7,7 +7,12 @@ const { getRestaurantIdByName, getRestaurantNameById } = require('./restaurants.
 async function addToHistory({ checkBasePrice, taxRate, tipRate, finalAmount, restaurantName }) {
     
     try {
-        restaurantId = await getRestaurantIdByName(restaurantName);
+        if (restaurantName !== undefined) {
+            restaurantId = await getRestaurantIdByName(restaurantName);
+        }
+        else{
+            restaurantId= null;
+        }
         // Insert data into the "checks" table
         const [insertedRecord] = await knex('checks').insert({
             base_price: checkBasePrice,

@@ -9,8 +9,8 @@ module.exports = {
     client: 'postgresql',
     connection: {
       database: 'tipax_database',
-      user: 'max',
-      password: 'n'
+      user: 'db_user_web',
+      password: 'db_user_web_pwd'
     },
     pool: {
       min: 2,

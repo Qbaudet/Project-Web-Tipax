@@ -51,10 +51,21 @@ async function getRestaurantNameById(restaurantId) {
 }
 
 
+async function getRestaurantsRecords() {
+    try {
+        const records = await knex('restaurants').select('*');
+        return records;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
 
 module.exports = {
     addRestaurant,
     getRestaurantNames,
     getRestaurantIdByName,
-    getRestaurantNameById
+    getRestaurantNameById,
+    getRestaurantsRecords
 };

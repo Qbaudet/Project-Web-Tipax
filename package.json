@@ -1,12 +1,11 @@
 {
-  "name": "assigment-1-web-development-baudet-quentin",
+  "name": "tipax-web-development",
   "version": "1.0.0",
-  "description": "The first assigment of the Web development class",
-  "main": "index.js",
+  "description": "The project of the Web development class",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "script": "node index.js"
+    "start": "node server.js"
   },
   "author": "Baudet Quentin",
   "license": "ISC",

@@ -1,7 +1,7 @@
 
 const calculateFinalAmount = require('./utils');
 const { addToHistory, getHistoryRecords, getCheckDetailsByFA, checkIfFAExists, checkIfIdExists, deleteCheck } = require('./services/checks.js');
-const { addRestaurant, getRestaurantNames } = require('./services/restaurants.js');
+const { addRestaurant, getRestaurantNames, getRestaurantsRecords } = require('./services/restaurants.js');
 const { addUser, login } = require('./services/users.js');
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -49,6 +49,17 @@ app.get('/getRestaurantNames', async (req, res) => {
 app.get('/history/data', async (req, res) => {
     try {
         const records = await getHistoryRecords();
+        res.json(records);
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Error fetching records from the database');
+    }
+});
+
+// Fetch and send the records as JSON
+app.get('/restaurants/data', async (req, res) => {
+    try {
+        const records = await getRestaurantsRecords();
         res.json(records);
     } catch (error) {
         console.error('Error:', error);

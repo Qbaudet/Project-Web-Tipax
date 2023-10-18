@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {      
+    
+    //Get the database data for the restaurants
+    fetch('/restaurants/data')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(record => {
+                addRestaurantCard(record.restaurant_name, record.address, record.category, record.grade)
+            });
+        })
+        .catch(error => console.error('Error:', error));
+
+    
     const rNameInput = document.getElementById("r_name");
     const rLocalInput = document.getElementById("r_local");
     const rCategorySelect = document.getElementById("r_category");
@@ -14,10 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     /* Display the logo corresponding to the category */
-    let restaurantCategory;
     rCategorySelect.addEventListener("change", function () {
-        restaurantInfo.r_category = rCategorySelect.value;
-        restaurantCategory = rCategorySelect.value; 
+        restaurantInfo.r_category = rCategorySelect.value; 
     });
     
     rNameInput.addEventListener("input", function () {
@@ -39,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    const restaurantList = document.getElementById("restaurant-list");
+    
 
     document.getElementById("r_submit").addEventListener("click", function () {
         event.preventDefault();
@@ -73,61 +83,10 @@ document.addEventListener('DOMContentLoaded', function () {
             })
 
             .catch(error => console.error("Error:", error));
-
-            const categoryImages = {
-                "American food": "/img/american.png",
-                "Japanese food": "/img/japanese.png",
-                "Mexican food": "/img/mexican.png",
-                "Chinese food": "/img/chinese.png",
-                "French food": "/img/french.png",
-                "Italian food": "/img/italian.png",
-                "Food_truck": "/img/food_truck.png",
-                "Pizzeria": "/img/pizza.png",
-                "Bar": "/img/bar.png",
-            };
-
-
-            /* We add the value of the form in a new div that we will create dynamically */
-            const categoryImageSrc = categoryImages[restaurantCategory] || '';
-
-            const newCard = document.createElement("div");
-            newCard.className = "cards";
-
-            const cardHeader = document.createElement("h3");
-            cardHeader.className = "card_header";
-            cardHeader.textContent = restaurantInfo.r_name;
             
-            const logoImg = document.createElement("img");
-            logoImg.src = categoryImageSrc;
-            logoImg.alt = `${restaurantCategory} Image`;
-            logoImg.className = "logo";
-
-            const cardBody = document.createElement("div");
-            cardBody.className = "card_body";
-
-            const address = document.createElement("p");
-            address.className = "address";
-            address.textContent = restaurantInfo.r_local;
-
-            const category = document.createElement("p");
-            category.className = "category";
-            category.textContent = restaurantInfo.r_category;
-  
-            const ranking = document.createElement("p");
-            ranking.className = "ranking";
-            ranking.textContent = `${restaurantInfo.r_rating} stars`;
-
-            cardBody.appendChild(logoImg);
-            cardBody.appendChild(address);
-            cardBody.appendChild(category);
-            cardBody.appendChild(ranking);
+            // Add the restaurant card to the page
+            addRestaurantCard(restaurantInfo.r_name, restaurantInfo.r_local, restaurantInfo.r_category, restaurantInfo.r_rating);
             
-            newCard.appendChild(cardHeader);
-
-            newCard.appendChild(cardBody);
-
-            restaurantList.appendChild(newCard);
-
             // Reset the form and restaurantInfo object
            document.getElementById("r_form").reset();
             restaurantInfo = {
@@ -140,3 +99,58 @@ document.addEventListener('DOMContentLoaded', function () {
     }) ;
     
 });
+
+
+
+
+function addRestaurantCard(name, address, category, rating){
+    const restaurantList = document.getElementById("restaurant-list");
+    const categoryImages = {
+        "American": "/img/american.png",
+        "Japanese": "/img/japanese.png",
+        "Mexican": "/img/mexican.png",
+        "Chinese": "/img/chinese.png",
+        "French": "/img/french.png",
+        "Italian": "/img/italian.png",
+        "Truck": "/img/food_truck.png",
+        "Pizzeria": "/img/pizza.png",
+        "Bar": "/img/bar.png",
+    };
+    const categoryImageSrc = categoryImages[category] || '';
+
+    const newCard = document.createElement("div");
+    newCard.className = "cards";
+
+    const cardHeader = document.createElement("h3");
+    cardHeader.className = "card_header";
+    cardHeader.textContent = name;
+    
+    const logoImg = document.createElement("img");
+    logoImg.src = categoryImageSrc;
+    logoImg.alt = `${category} Image`;
+    logoImg.className = "logo";
+
+    const cardBody = document.createElement("div");
+    cardBody.className = "card_body";
+
+    const addressText = document.createElement("p");
+    addressText.className = "address";
+    addressText.textContent = address;
+
+    const categoryText = document.createElement("p");
+    categoryText.className = "category";
+    categoryText.textContent = category;
+
+    const rankingText = document.createElement("p");
+    rankingText.className = "ranking";
+    rankingText.textContent = `${rating} stars`;
+
+    cardBody.appendChild(logoImg);
+    cardBody.appendChild(addressText);
+    cardBody.appendChild(categoryText);
+    cardBody.appendChild(rankingText);
+    newCard.appendChild(cardHeader);
+    newCard.appendChild(cardBody);
+
+    restaurantList.appendChild(newCard);
+};
