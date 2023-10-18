@@ -104,10 +104,10 @@ app.get('/history/check/:finalAmount', async (req, res) => {
     }
 });
 
-app.post('/history/check/delete/:id_check', async (req, res) => {
-    const id_check = req.params.id_check;
+app.post('/history/check/delete/:finalAmount', async (req, res) => {
+    const finalAmount = req.params.finalAmount;
     try {
-        const deleteResult = await deleteCheck(id_check);
+        const deleteResult = await deleteCheck(finalAmount);
         res.json(deleteResult);
     } catch (error) {
         console.error('Error:', error);
