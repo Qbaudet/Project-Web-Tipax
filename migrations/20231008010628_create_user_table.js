@@ -11,9 +11,9 @@ exports.up = async knex => {
 
     // Insert data into the users table
     await knex('users').insert([
-        {id_user: 1, username: 'James', password: '@fqdsioufe44324JDFIC81&'},
-        {id_user: 2, username: 'Amy', password: 'jfdsq`@fjiroezPQDSFfmfefqjd'},
-        {id_user: 3, username: 'Kiara', password: 'fqoozze#dqfFrEQ&@'},
+        { username: 'James', password: '@fqdsioufe44324JDFIC81&'},
+        { username: 'Amy', password: 'jfdsq`@fjiroezPQDSFfmfefqjd'},
+        { username: 'Kiara', password: 'fqoozze#dqfFrEQ&@'},
     ]);
 };
 

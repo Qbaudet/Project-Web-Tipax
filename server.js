@@ -211,9 +211,9 @@ app.post('/add-user', async (req, res) => {
         const result = await addUser({ username, hash });
         if (result.success){
             // User added successfully, redirect to the root ("/") route
-            res.redirect('/');
+            res.status(500).json({ success: true, message: "User successfully created" });
         } else {
-            res.status(200).json({ success: false, message: "There was an error while adding your user." });
+            res.status(500).json({ success: false, message: "There was an error while adding your user." });
         }
     } catch (error) {
         res.status(500).json({ success: false, message: "Server error" });

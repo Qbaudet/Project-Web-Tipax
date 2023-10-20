@@ -163,17 +163,16 @@
             })
             .then(response => response.json())
             .then(data => {
+                console.log('Success:', data)
                 // Handle the server's response here
         
-                const MessageElement = document.getElementById("message");
                 if (data.success) {
                     // Restaurant was added successfull
-                    MessageElement.innerText = "Your user was successfully added!";
+                    alert("Your user was successfully added!");
                 } else {
                     // There was an error
-                    MessageElement.innerText = "There was an error while adding your user.";
+                    alert("There was an error while adding your user.");
                 }
-                MessageElement.style.display = "block";
             })
             .catch(error => console.error("Error:", error));
         });

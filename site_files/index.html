@@ -66,43 +66,45 @@
         </div>
     </nav>
 </header>
-
-<h2>The website that makes your check calculations a breeze !</h2>
-
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="content">
-                <div class="home-form-container">
-                    <form id="calculateForm">
-                        <label for="basePrice">Enter the check amount without tax:</label>
-                        <input type="number" id="basePrice" name="basePrice" required step="0.01" min="0">
-                        <br>
-                        <label for="taxRate">Enter the tax % of your city (0-100%):</label>
-                        <input type="number" id="taxRate" name="taxRate" required step="0.01" min="0" max="100">
-                        <br>
-                        <label for="tipRate">Enter the tip % you want to give (0-100%):</label>
-                        <input type="number" id="tipRate" name="tipRate" required step="0.01" min="0" max="100">
-                        <br>
-                        <label for="restaurantName">Choose a restaurant:</label>
-                        <select id="restaurantName" name="restaurantName" class="form-input">
-                            <option value="" disabled selected>Select a restaurant</option>
-                        </select>
-                        <button id="addRestaurantButton" type="button">Add Your Own Restaurant</button>                        <input type="submit" value="Submit">
-                    </form>
+<div id="app">
+    <h2>The website that makes your check calculations a breeze !</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="content">
+                    <div class="home-form-container">
+                        <form id="calculateForm" @submit.prevent="setCalculatedTabTrue">
+                            <label for="basePrice">Enter the check amount without tax:</label>
+                            <input type="number" id="basePrice" name="basePrice" required step="0.01" min="0" v-model="basePrice">
+                            <br>
+                            <label for="taxRate">Enter the tax % of your city (0-100%):</label>
+                            <input type="number" id="taxRate" name="taxRate" required step="0.01" min="0" max="100" v-model="taxRate">
+                            <br>
+                            <label for="tipRate">Enter the tip % you want to give (0-100%):</label>
+                            <input type="number" id="tipRate" name="tipRate" required step="0.01" min="0" max="100" v-model="tipRate">
+                            <br>
+                            <label for="restaurantName">Choose a restaurant:</label>
+                            <select id="restaurantName" name="restaurantName" class="form-input" v-model="restaurantName">
+                                <option value="" disabled selected>Select a restaurant</option>
+                            </select>
+                            <button id="addRestaurantButton" type="button" @click="addRestaurant">Add Your Own Restaurant</button>
+                            <p></p><p></p>
+                            <input type="submit" value="Submit" style="background-color: forestgreen">
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <br>
-            <div id="resultDiv">
-                <h3 id="result">The final check amount including taxes and tips is:</h3>
-                <p id="finalAmount"></p>
-                <button id="addToHistory" style="display: none;">Add this check to the history</button>
+            <div class="col">
+                <br>
+                <div id="resultDiv">
+                    <h3 id="result">The final check amount including taxes and tips is:</h3>
+                    <p id="finalAmount"></p>
+                    <button id="addToHistory" :class="{ disabled: !calculatedTab }" @click="addToHistoryClick" :disabled="!calculatedTab">Add this check to the history</button>
+                </div>
+                <br><br><br>
+                <h5>Here is the most recent check you calculated:</h5>
+                <div id="records"></div>
             </div>
-            <br><br><br>
-            <h5>Here is the most recent check you calculated:</h5>
-            <div id="records"></div>
         </div>
     </div>
 </div>
@@ -110,36 +112,57 @@
 
 
 <script>
-    const {createApp, ref} = Vue
+    // Import Vue and other required functions from Vue
+    const { createApp, ref } = Vue;
 
+    // Create a new Vue application
     const app = createApp({
         setup() {
+            // Define reactive variables
             const calculatedTab = ref(false);
+            const finalAmount = ref(0); // You need to calculate and set this value in your code
+
+            // Form input values
+            const basePrice = ref('');
+            const taxRate = ref('');
+            const tipRate = ref('');
+            const restaurantName = ref('');
 
             // Method to set calculatedTab to true
             const setCalculatedTabTrue = () => {
-                const basePriceInput = $refs.basePriceInput;
-                const taxRateInput = $refs.taxRateInput;
-                const tipRateInput = $refs.tipRateInput;
-                const restaurantNameInput = $refs.restaurantNameInput;
-
-                // Perform form validation using these references
-
-                if (!basePriceInput.value || !taxRateInput.value || !tipRateInput.value || !restaurantNameInput.value) {
+                if (!basePrice.value || !taxRate.value || !tipRate.value || !restaurantName.value) {
                     // Display an error message or take appropriate action
                     return;
                 }
                 calculatedTab.value = true;
             }
 
+            // Method to add a restaurant (you need to implement this)
+            const addRestaurant = () => {
+                // Implement logic to add a restaurant
+            }
+
+            // Method to add the check to history (you need to implement this)
+            const addToHistoryClick = () => {
+                // Implement logic to add the check to history
+            }
+
             return {
                 calculatedTab,
-                setCalculatedTabTrue, // Expose the method to the template
+                setCalculatedTabTrue,
+                addToHistoryClick,
+                addRestaurant,
+                basePrice,
+                taxRate,
+                tipRate,
+                restaurantName,
+                finalAmount,
             }
         }
-    }).mount('#app')
-
+    }).mount('#app');
 </script>
+
+
 
 </body>
 

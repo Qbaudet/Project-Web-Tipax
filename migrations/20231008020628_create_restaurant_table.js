@@ -13,7 +13,6 @@ exports.up = async knex => {
     });
     await knex('restaurants').insert([
         {
-            id_restaurant: 1,
             restaurant_name: 'Shake Shack',
             address: '512 Spectrum Center Dr Suite 512, Irvine, CA 92618',
             grade: 4,
@@ -21,7 +20,6 @@ exports.up = async knex => {
             associated_user: 2
         },
         {
-            id_restaurant: 2,
             restaurant_name: 'Mo\'s Grill',
             address: '1322 Grant Ave, San Francisco, CA 94133',
             grade: 5,
@@ -29,7 +27,6 @@ exports.up = async knex => {
             associated_user: 3
         },
         {
-            id_restaurant: 3,
             restaurant_name: 'Blaze Pizza',
             address: '4255 Campus Dr A120, Irvine, CA 92612',
             grade: 4,
@@ -37,7 +34,6 @@ exports.up = async knex => {
             associated_user: 2
         },
         {
-            id_restaurant: 4,
             restaurant_name: 'Antojitos Cocina Mexicana',
             address: '100 Universal City Plaza, Universal City, CA 91608',
             grade: 1,

@@ -113,7 +113,7 @@ const addToHistory = () => {
         .then((response) => response.json())
         .then((result) => {
           if (responseStatus === 200) {
-            alert(`${result.message}\nRecord: ${JSON.stringify(result.record)}`);
+            alert("Check added to history successfully.");
               location.reload();
           } else {
             alert('Failed to add check to history.');

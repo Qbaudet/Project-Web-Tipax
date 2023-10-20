@@ -15,7 +15,6 @@ exports.up = async knex => {
     });
     await knex('checks').insert([
         {
-            id_check: 1,
             base_price: 56.00,
             tax_rate: 10.00,
             tip_rate: 20.00,
@@ -25,7 +24,6 @@ exports.up = async knex => {
             associated_user: 1
         },
         {
-            id_check: 2,
             base_price: 47.00,
             tax_rate: 8.00,
             tip_rate: 15.00,
@@ -35,7 +33,6 @@ exports.up = async knex => {
             associated_user: 1
         },
         {
-            id_check: 3,
             base_price: 79.60,
             tax_rate: 9.30,
             tip_rate: 18.00,
@@ -45,7 +42,6 @@ exports.up = async knex => {
             associated_user: 2
         },
         {
-            id_check: 4,
             base_price: 103.56,
             tax_rate: 9.80,
             tip_rate: 20.00,
